@@ -26,7 +26,7 @@ A Jumia-style multi-sided marketplace built with **Laravel 12**, **MySQL**, **Bo
 ### 2. Clone & install dependencies
 
 ```bash
-git clone https://github.com/AaronSena2/e-commerce.git
+git clone https://github.com/your-org/e-commerce.git
 cd e-commerce
 
 composer install

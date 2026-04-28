@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('location_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('on_hand')->default(0);
             $table->unsignedInteger('reserved')->default(0);
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamps();
 
             $table->unique(['sku_id', 'location_id']);
         });
