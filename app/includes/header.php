@@ -56,7 +56,7 @@ if (!isset($base_url)) {
 
         <!-- Brand -->
         <a class="navbar-brand d-flex align-items-center gap-2 flex-shrink-0" href="<?= $base_url ?>/public/index.php">
-            <i class="bi bi-shop-window" style="color:var(--fb-blue);-webkit-text-fill-color:var(--fb-blue);"></i>
+            <i class="bi bi-shop-window"></i>
             ShopMVP
         </a>
 
@@ -69,7 +69,7 @@ if (!isset($base_url)) {
         <button class="navbar-toggler ms-auto" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navMain"
                 aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-list fs-4" style="color:var(--fb-text-2);"></i>
+            <i class="bi bi-list fs-4"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navMain">
