@@ -60,7 +60,7 @@ require_once __DIR__ . '/../app/includes/header.php';
 <div class="container">
 
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
+    <nav aria-label="breadcrumb" class="mb-4 fade-up">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Products</a></li>
             <li class="breadcrumb-item active" aria-current="page">
@@ -70,7 +70,7 @@ require_once __DIR__ . '/../app/includes/header.php';
     </nav>
 
     <?php if ($success_msg): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show fade-up" role="alert">
             <i class="bi bi-check-circle me-2"></i><?= $success_msg ?>
             <a href="cart.php" class="alert-link ms-2">View Cart</a>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -78,45 +78,45 @@ require_once __DIR__ . '/../app/includes/header.php';
     <?php endif; ?>
 
     <?php if ($error_msg): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show fade-up" role="alert">
             <i class="bi bi-exclamation-triangle me-2"></i><?= htmlspecialchars($error_msg) ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
-    <div class="row g-5">
-        <!-- Product image placeholder -->
+    <div class="row g-5 fade-up fade-up-1">
+        <!-- Product image -->
         <div class="col-md-5">
-            <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-                <div class="card-img-placeholder" style="height:360px; font-size:8rem; background:#e9ecef; display:flex; align-items:center; justify-content:center; color:#adb5bd;">
-                    <i class="bi bi-box-seam"></i>
-                </div>
+            <div class="product-detail-img shadow-sm">
+                <i class="bi bi-box-seam"></i>
             </div>
         </div>
 
         <!-- Product details -->
         <div class="col-md-7">
-            <h1 class="h2 mb-2"><?= htmlspecialchars($product['name']) ?></h1>
+            <h1 class="h2 fw-800 mb-2" style="font-weight:800;letter-spacing:-.03em;">
+                <?= htmlspecialchars($product['name']) ?>
+            </h1>
 
-            <div class="mb-3">
-                <span class="fs-3 fw-bold text-primary">
-                    $<?= number_format((float) $product['price'], 2) ?>
-                </span>
+            <div class="mb-4">
+                <span class="price-tag">$<?= number_format((float) $product['price'], 2) ?></span>
             </div>
 
-            <p class="text-muted mb-4"><?= nl2br(htmlspecialchars($product['description'] ?? '')) ?></p>
+            <p style="color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;">
+                <?= nl2br(htmlspecialchars($product['description'] ?? '')) ?>
+            </p>
 
             <?php if ((int) $product['stock'] > 0): ?>
-                <p class="mb-4">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle fs-6 px-3 py-2">
+                <div class="mb-4">
+                    <span class="badge fs-6 px-3 py-2 rounded-pill" style="background:rgba(16,185,129,.12);color:#059669;border:1px solid rgba(16,185,129,.3);">
                         <i class="bi bi-check-circle me-1"></i>In Stock
-                        (<?= (int) $product['stock'] ?> available)
+                        &mdash; <?= (int) $product['stock'] ?> available
                     </span>
-                </p>
+                </div>
 
                 <form method="post" action="product.php?id=<?= (int) $product['id'] ?>">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <label for="quantity" class="form-label mb-0 fw-semibold">Qty:</label>
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <label for="quantity" class="form-label mb-0">Qty:</label>
                         <input
                             type="number"
                             id="quantity"
@@ -129,31 +129,37 @@ require_once __DIR__ . '/../app/includes/header.php';
                             required
                         >
                     </div>
-                    <button type="submit" name="add_to_cart" class="btn btn-primary btn-lg px-5">
-                        <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                    </button>
-                    <a href="cart.php" class="btn btn-outline-secondary btn-lg ms-2">
-                        <i class="bi bi-cart3 me-1"></i>View Cart
-                    </a>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" name="add_to_cart" class="btn btn-primary btn-lg px-5">
+                            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                        </button>
+                        <a href="cart.php" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-cart3 me-1"></i>View Cart
+                        </a>
+                    </div>
                 </form>
 
                 <!-- Request a Quote -->
-                <hr class="my-4">
-                <a href="quote_request.php?product_id=<?= (int) $product['id'] ?>"
-                   class="btn btn-outline-primary">
-                    <i class="bi bi-envelope me-2"></i>Request a Quote
-                </a>
+                <div class="mt-4 pt-3" style="border-top:1px solid var(--border);">
+                    <p class="text-muted small mb-2">Need a bulk deal or custom price?</p>
+                    <a href="quote_request.php?product_id=<?= (int) $product['id'] ?>"
+                       class="btn btn-outline-primary">
+                        <i class="bi bi-envelope me-2"></i>Request a Quote
+                    </a>
+                </div>
             <?php else: ?>
-                <div class="alert alert-secondary">
+                <div class="alert alert-secondary mb-4">
                     <i class="bi bi-x-circle me-2"></i>This item is currently out of stock.
                 </div>
-                <a href="index.php" class="btn btn-outline-primary me-2">
-                    <i class="bi bi-arrow-left me-1"></i>Back to Products
-                </a>
-                <a href="quote_request.php?product_id=<?= (int) $product['id'] ?>"
-                   class="btn btn-outline-primary">
-                    <i class="bi bi-envelope me-2"></i>Request a Quote
-                </a>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="index.php" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Products
+                    </a>
+                    <a href="quote_request.php?product_id=<?= (int) $product['id'] ?>"
+                       class="btn btn-outline-primary">
+                        <i class="bi bi-envelope me-2"></i>Request a Quote
+                    </a>
+                </div>
             <?php endif; ?>
         </div>
     </div>

@@ -24,6 +24,11 @@ if (!isset($base_url)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title ?? 'E-Commerce Shop') ?></title>
 
+    <!-- Google Fonts — Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <!-- Bootstrap 5 CSS (CDN) -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -46,13 +51,14 @@ if (!isset($base_url)) {
 <!-- ================================================================
      Navbar
      ================================================================ -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="<?= $base_url ?>/public/index.php">
-            <i class="bi bi-shop me-1"></i> ShopMVP
+        <a class="navbar-brand d-flex align-items-center gap-2" href="<?= $base_url ?>/public/index.php">
+            <i class="bi bi-bag-heart-fill" style="color:#8b5cf6; -webkit-text-fill-color:#8b5cf6;"></i>
+            ShopMVP
         </a>
 
-        <button class="navbar-toggler" type="button"
+        <button class="navbar-toggler border-0" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navMain"
                 aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -68,7 +74,7 @@ if (!isset($base_url)) {
             </ul>
 
             <!-- Right side: Admin link + Cart -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2 align-items-lg-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,18 +95,18 @@ if (!isset($base_url)) {
                 </li>
             </ul>
 
-            <!-- Cart icon with item count badge -->
-            <a href="<?= $base_url ?>/public/cart.php" class="btn btn-outline-light position-relative">
+            <!-- Cart button -->
+            <a href="<?= $base_url ?>/public/cart.php" class="btn btn-cart position-relative d-flex align-items-center gap-2">
                 <i class="bi bi-cart3"></i>
                 <?php
                 $count = cart_count();
                 if ($count > 0):
                 ?>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill cart-badge">
                         <?= $count ?>
                     </span>
                 <?php endif; ?>
-                <span class="ms-1 d-none d-sm-inline">Cart</span>
+                <span class="d-none d-sm-inline">Cart</span>
             </a>
         </div>
     </div>

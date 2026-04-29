@@ -76,150 +76,107 @@ require_once __DIR__ . '/../app/includes/header.php';
 
 <div class="container">
 
-    <h1 class="h3 mb-4">
-        <i class="bi bi-credit-card me-2 text-primary"></i>Checkout
+    <h1 class="section-heading mb-4 fade-up">
+        <i class="bi bi-credit-card"></i>Checkout
     </h1>
 
     <?php if (!empty($errors['general'])): ?>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger fade-up">
             <i class="bi bi-exclamation-triangle me-2"></i><?= $errors['general'] ?>
         </div>
     <?php endif; ?>
 
     <div class="row g-4">
         <!-- Checkout form -->
-        <div class="col-lg-7">
-            <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-header bg-transparent border-0 pt-4 pb-0">
-                    <h5 class="mb-0"><i class="bi bi-person me-2"></i>Shipping Information</h5>
+        <div class="col-lg-7 fade-up fade-up-1">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-person me-2"></i>Shipping Information
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="post" action="checkout.php" id="checkout-form" novalidate>
 
-                        <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
+                            <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" id="name" name="name"
                                 class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>"
                                 value="<?= htmlspecialchars($old['name'] ?? '') ?>"
-                                placeholder="Jane Smith"
-                                required
-                            >
+                                placeholder="Jane Smith" required>
                             <?php if (isset($errors['name'])): ?>
                                 <div class="invalid-feedback"><?= htmlspecialchars($errors['name']) ?></div>
                             <?php endif; ?>
                         </div>
 
-                        <!-- Email -->
                         <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" id="email" name="email"
                                 class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
                                 value="<?= htmlspecialchars($old['email'] ?? '') ?>"
-                                placeholder="jane@example.com"
-                                required
-                            >
+                                placeholder="jane@example.com" required>
                             <?php if (isset($errors['email'])): ?>
                                 <div class="invalid-feedback"><?= htmlspecialchars($errors['email']) ?></div>
                             <?php endif; ?>
                         </div>
 
-                        <!-- Phone (optional) -->
                         <div class="mb-3">
-                            <label for="phone" class="form-label fw-semibold">Phone <span class="text-muted fw-normal">(optional)</span></label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
+                            <label for="phone" class="form-label">Phone <span class="text-muted fw-normal small">(optional)</span></label>
+                            <input type="tel" id="phone" name="phone"
                                 class="form-control"
                                 value="<?= htmlspecialchars($old['phone'] ?? '') ?>"
-                                placeholder="+1 555 000 1234"
-                            >
+                                placeholder="+1 555 000 1234">
                         </div>
 
-                        <hr class="my-4">
+                        <hr style="border-color:var(--border);margin:1.5rem 0;">
 
-                        <!-- Address -->
                         <div class="mb-3">
-                            <label for="address" class="form-label fw-semibold">Street Address <span class="text-danger">*</span></label>
-                            <input
-                                type="text"
-                                id="address"
-                                name="address"
+                            <label for="address" class="form-label">Street Address <span class="text-danger">*</span></label>
+                            <input type="text" id="address" name="address"
                                 class="form-control <?= isset($errors['address']) ? 'is-invalid' : '' ?>"
                                 value="<?= htmlspecialchars($old['address'] ?? '') ?>"
-                                placeholder="123 Main St, Apt 4B"
-                                required
-                            >
+                                placeholder="123 Main St, Apt 4B" required>
                             <?php if (isset($errors['address'])): ?>
                                 <div class="invalid-feedback"><?= htmlspecialchars($errors['address']) ?></div>
                             <?php endif; ?>
                         </div>
 
                         <div class="row g-3">
-                            <!-- City -->
                             <div class="col-sm-5">
-                                <label for="city" class="form-label fw-semibold">City <span class="text-danger">*</span></label>
-                                <input
-                                    type="text"
-                                    id="city"
-                                    name="city"
+                                <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                                <input type="text" id="city" name="city"
                                     class="form-control <?= isset($errors['city']) ? 'is-invalid' : '' ?>"
                                     value="<?= htmlspecialchars($old['city'] ?? '') ?>"
-                                    placeholder="New York"
-                                    required
-                                >
+                                    placeholder="New York" required>
                                 <?php if (isset($errors['city'])): ?>
                                     <div class="invalid-feedback"><?= htmlspecialchars($errors['city']) ?></div>
                                 <?php endif; ?>
                             </div>
-
-                            <!-- State -->
                             <div class="col-sm-4">
-                                <label for="state" class="form-label fw-semibold">State / Province <span class="text-danger">*</span></label>
-                                <input
-                                    type="text"
-                                    id="state"
-                                    name="state"
+                                <label for="state" class="form-label">State / Province <span class="text-danger">*</span></label>
+                                <input type="text" id="state" name="state"
                                     class="form-control <?= isset($errors['state']) ? 'is-invalid' : '' ?>"
                                     value="<?= htmlspecialchars($old['state'] ?? '') ?>"
-                                    placeholder="NY"
-                                    required
-                                >
+                                    placeholder="NY" required>
                                 <?php if (isset($errors['state'])): ?>
                                     <div class="invalid-feedback"><?= htmlspecialchars($errors['state']) ?></div>
                                 <?php endif; ?>
                             </div>
-
-                            <!-- ZIP -->
                             <div class="col-sm-3">
-                                <label for="zip" class="form-label fw-semibold">ZIP / Postal <span class="text-danger">*</span></label>
-                                <input
-                                    type="text"
-                                    id="zip"
-                                    name="zip"
+                                <label for="zip" class="form-label">ZIP / Postal <span class="text-danger">*</span></label>
+                                <input type="text" id="zip" name="zip"
                                     class="form-control <?= isset($errors['zip']) ? 'is-invalid' : '' ?>"
                                     value="<?= htmlspecialchars($old['zip'] ?? '') ?>"
-                                    placeholder="10001"
-                                    required
-                                >
+                                    placeholder="10001" required>
                                 <?php if (isset($errors['zip'])): ?>
                                     <div class="invalid-feedback"><?= htmlspecialchars($errors['zip']) ?></div>
                                 <?php endif; ?>
                             </div>
                         </div>
 
-                        <div class="mt-4">
-                            <button type="submit" class="btn btn-success btn-lg px-5">
+                        <div class="mt-4 d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-success btn-lg px-5 fw-semibold">
                                 <i class="bi bi-bag-check me-2"></i>Place Order
                             </button>
-                            <a href="cart.php" class="btn btn-outline-secondary btn-lg ms-2">
+                            <a href="cart.php" class="btn btn-outline-secondary btn-lg">
                                 <i class="bi bi-arrow-left me-1"></i>Back to Cart
                             </a>
                         </div>
@@ -230,27 +187,27 @@ require_once __DIR__ . '/../app/includes/header.php';
         </div>
 
         <!-- Order summary sidebar -->
-        <div class="col-lg-5">
-            <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-header bg-transparent border-0 pt-4 pb-0">
-                    <h5 class="mb-0"><i class="bi bi-receipt me-2"></i>Your Order</h5>
+        <div class="col-lg-5 fade-up fade-up-2">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-receipt me-2"></i>Your Order
                 </div>
                 <div class="card-body">
                     <?php foreach ($cart as $item): ?>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div class="text-truncate me-2" style="max-width:230px;">
-                                <span class="badge bg-secondary me-1"><?= (int) $item['quantity'] ?>×</span>
-                                <?= htmlspecialchars($item['name']) ?>
+                                <span class="badge rounded-pill me-1" style="background:var(--brand-grad-soft);color:var(--brand-1);"><?= (int) $item['quantity'] ?>×</span>
+                                <span style="font-size:.875rem;"><?= htmlspecialchars($item['name']) ?></span>
                             </div>
-                            <span class="text-nowrap fw-semibold">
+                            <span class="text-nowrap fw-semibold" style="color:var(--brand-1);">
                                 $<?= number_format((float) $item['price'] * (int) $item['quantity'], 2) ?>
                             </span>
                         </div>
                     <?php endforeach; ?>
-                    <hr>
+                    <hr style="border-color:var(--border);">
                     <div class="d-flex justify-content-between fs-5 fw-bold">
                         <span>Total</span>
-                        <span class="text-success">$<?= number_format($total, 2) ?></span>
+                        <span class="gradient-text">$<?= number_format($total, 2) ?></span>
                     </div>
                 </div>
             </div>

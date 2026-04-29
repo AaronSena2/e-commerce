@@ -43,27 +43,30 @@ require_once __DIR__ . '/../app/includes/header.php';
 
 <div class="container">
 
-    <h1 class="h3 mb-4">
-        <i class="bi bi-cart3 me-2 text-primary"></i>Your Cart
+    <h1 class="section-heading mb-4 fade-up">
+        <i class="bi bi-cart3"></i>Your Cart
     </h1>
 
     <?php if (empty($cart)): ?>
-        <div class="text-center py-5">
-            <i class="bi bi-cart-x" style="font-size:4rem; color:#adb5bd;"></i>
-            <p class="mt-3 fs-5 text-muted">Your cart is empty.</p>
-            <a href="index.php" class="btn btn-primary mt-2">
+        <div class="text-center py-5 fade-up fade-up-1">
+            <div style="width:90px;height:90px;border-radius:50%;background:var(--brand-grad-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:2.5rem;color:var(--brand-1);">
+                <i class="bi bi-cart-x"></i>
+            </div>
+            <p class="fs-5 fw-semibold mb-1" style="color:var(--text-main);">Your cart is empty</p>
+            <p class="text-muted mb-4">Looks like you haven&rsquo;t added anything yet.</p>
+            <a href="index.php" class="btn btn-primary px-4">
                 <i class="bi bi-arrow-left me-1"></i>Continue Shopping
             </a>
         </div>
     <?php else: ?>
         <div class="row g-4">
             <!-- Cart items -->
-            <div class="col-lg-8">
-                <div class="card shadow-sm border-0 rounded-3">
+            <div class="col-lg-8 fade-up fade-up-1">
+                <div class="card">
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table align-middle mb-0">
-                                <thead class="table-light">
+                                <thead>
                                     <tr>
                                         <th class="ps-4">Product</th>
                                         <th class="text-center">Price</th>
@@ -75,58 +78,47 @@ require_once __DIR__ . '/../app/includes/header.php';
                                 <tbody>
                                     <?php foreach ($cart as $item): ?>
                                         <tr>
-                                            <!-- Product name/image -->
                                             <td class="ps-4">
                                                 <div class="d-flex align-items-center gap-3">
-                                                    <div class="cart-img d-flex align-items-center justify-content-center bg-light rounded">
-                                                        <i class="bi bi-box-seam text-muted fs-4"></i>
+                                                    <div class="cart-img">
+                                                        <i class="bi bi-box-seam"></i>
                                                     </div>
                                                     <a href="product.php?id=<?= (int) $item['product_id'] ?>"
-                                                       class="text-decoration-none text-dark fw-semibold">
+                                                       class="text-decoration-none fw-semibold" style="color:var(--text-main);">
                                                         <?= htmlspecialchars($item['name']) ?>
                                                     </a>
                                                 </div>
                                             </td>
-
-                                            <!-- Unit price -->
-                                            <td class="text-center">
+                                            <td class="text-center fw-semibold" style="color:var(--text-muted);">
                                                 $<?= number_format((float) $item['price'], 2) ?>
                                             </td>
-
-                                            <!-- Quantity form -->
                                             <td class="text-center">
                                                 <form method="post" action="cart.php" class="d-inline-flex align-items-center gap-1">
                                                     <input type="hidden" name="product_id" value="<?= (int) $item['product_id'] ?>">
                                                     <input
                                                         type="number"
-                                                        id="qty-<?= (int) $item['product_id'] ?>"
                                                         name="quantity"
                                                         value="<?= (int) $item['quantity'] ?>"
-                                                        min="1"
-                                                        max="999"
+                                                        min="1" max="999"
                                                         class="form-control form-control-sm qty-input text-center"
                                                         style="width:65px;"
                                                     >
-                                                    <button type="submit" name="update_qty" class="btn btn-sm btn-outline-secondary" title="Update">
+                                                    <button type="submit" name="update_qty"
+                                                            class="btn btn-sm btn-outline-secondary" title="Update">
                                                         <i class="bi bi-arrow-repeat"></i>
                                                     </button>
                                                 </form>
                                             </td>
-
-                                            <!-- Subtotal -->
-                                            <td class="text-end fw-semibold">
+                                            <td class="text-end fw-bold" style="color:var(--brand-1);">
                                                 $<?= number_format((float) $item['price'] * (int) $item['quantity'], 2) ?>
                                             </td>
-
-                                            <!-- Remove -->
                                             <td class="pe-4">
                                                 <form method="post" action="cart.php">
                                                     <input type="hidden" name="product_id" value="<?= (int) $item['product_id'] ?>">
-                                                    <button
-                                                        type="submit"
-                                                        name="remove_item"
-                                                        class="btn btn-sm btn-outline-danger btn-remove-item"
-                                                        title="Remove">
+                                                    <button type="submit" name="remove_item"
+                                                            class="btn btn-sm btn-remove-item"
+                                                            style="color:#ef4444;border:none;background:rgba(239,68,68,.08);border-radius:.4rem;padding:.35rem .5rem;"
+                                                            title="Remove">
                                                         <i class="bi bi-trash3"></i>
                                                     </button>
                                                 </form>
@@ -138,7 +130,6 @@ require_once __DIR__ . '/../app/includes/header.php';
                         </div>
                     </div>
                 </div>
-
                 <div class="mt-3">
                     <a href="index.php" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left me-1"></i>Continue Shopping
@@ -147,31 +138,31 @@ require_once __DIR__ . '/../app/includes/header.php';
             </div>
 
             <!-- Order summary -->
-            <div class="col-lg-4">
-                <div class="card shadow-sm border-0 rounded-3">
-                    <div class="card-header bg-transparent border-0 pt-4 pb-0">
-                        <h5 class="mb-0"><i class="bi bi-receipt me-2"></i>Order Summary</h5>
+            <div class="col-lg-4 fade-up fade-up-2">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-receipt me-2"></i>Order Summary
                     </div>
                     <div class="card-body">
                         <dl class="row mb-0">
                             <?php foreach ($cart as $item): ?>
-                                <dt class="col-8 fw-normal text-muted small text-truncate">
+                                <dt class="col-8 fw-normal small text-truncate" style="color:var(--text-muted);">
                                     <?= htmlspecialchars($item['name']) ?>
-                                    <span class="text-dark">× <?= (int) $item['quantity'] ?></span>
+                                    <span style="color:var(--text-main);">× <?= (int) $item['quantity'] ?></span>
                                 </dt>
                                 <dd class="col-4 text-end small mb-1">
                                     $<?= number_format((float) $item['price'] * (int) $item['quantity'], 2) ?>
                                 </dd>
                             <?php endforeach; ?>
                         </dl>
-                        <hr>
-                        <div class="d-flex justify-content-between fs-5 fw-bold">
+                        <hr style="border-color:var(--border);">
+                        <div class="d-flex justify-content-between fw-bold fs-5">
                             <span>Total</span>
-                            <span class="text-primary">$<?= number_format($total, 2) ?></span>
+                            <span class="gradient-text">$<?= number_format($total, 2) ?></span>
                         </div>
                     </div>
-                    <div class="card-footer bg-transparent border-0 pb-4">
-                        <a href="checkout.php" class="btn btn-success w-100 btn-lg">
+                    <div class="card-footer bg-transparent border-top" style="border-color:var(--border)!important;padding:1rem 1.25rem 1.25rem;">
+                        <a href="checkout.php" class="btn btn-success w-100 btn-lg fw-semibold">
                             <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
                         </a>
                     </div>

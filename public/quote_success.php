@@ -24,13 +24,13 @@ require_once __DIR__ . '/../app/includes/header.php';
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-6 text-center py-5">
+        <div class="col-lg-6 text-center py-5 fade-up">
 
-            <div class="mb-4">
-                <i class="bi bi-check-circle-fill text-success" style="font-size:4rem;"></i>
+            <div class="success-icon-wrap">
+                <i class="bi bi-envelope-check"></i>
             </div>
 
-            <h1 class="h3 mb-3">Quote Request Received!</h1>
+            <h1 class="h3 fw-bold mb-3" style="letter-spacing:-.02em;">Quote Request Received!</h1>
 
             <?php if ($request): ?>
                 <p class="text-muted mb-1">
@@ -38,25 +38,27 @@ require_once __DIR__ . '/../app/includes/header.php';
                     <strong><?= htmlspecialchars($request['product_name'] ?? 'the product') ?></strong>
                     has been submitted successfully.
                 </p>
-                <p class="text-muted mb-4">
+                <p class="text-muted mb-5">
                     We will contact you at
                     <strong><?= htmlspecialchars($request['email']) ?></strong>.
                 </p>
             <?php else: ?>
-                <p class="text-muted mb-4">
+                <p class="text-muted mb-5">
                     Your quote request has been submitted. We will be in touch soon.
                 </p>
             <?php endif; ?>
 
-            <a href="index.php" class="btn btn-primary me-2">
-                <i class="bi bi-grid me-1"></i>Continue Shopping
-            </a>
-            <?php if ($request): ?>
-                <a href="product.php?id=<?= (int) $request['product_id'] ?>"
-                   class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-1"></i>Back to Product
+            <div class="d-flex justify-content-center gap-2">
+                <a href="index.php" class="btn btn-primary px-4">
+                    <i class="bi bi-grid me-1"></i>Continue Shopping
                 </a>
-            <?php endif; ?>
+                <?php if ($request): ?>
+                    <a href="product.php?id=<?= (int) $request['product_id'] ?>"
+                       class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Product
+                    </a>
+                <?php endif; ?>
+            </div>
 
         </div>
     </div>

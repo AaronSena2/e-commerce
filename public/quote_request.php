@@ -86,8 +86,7 @@ require_once __DIR__ . '/../app/includes/header.php';
 
 <div class="container">
 
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
+    <nav aria-label="breadcrumb" class="mb-4 fade-up">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Products</a></li>
             <li class="breadcrumb-item">
@@ -100,17 +99,24 @@ require_once __DIR__ . '/../app/includes/header.php';
     </nav>
 
     <div class="row justify-content-center">
-        <div class="col-lg-7">
+        <div class="col-lg-7 fade-up fade-up-1">
 
-            <div class="card shadow-sm">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-envelope me-2"></i>Request a Quote
+                </div>
                 <div class="card-body p-4">
-                    <h1 class="h4 mb-1">
-                        <i class="bi bi-envelope me-2 text-primary"></i>Request a Quote
-                    </h1>
-                    <p class="text-muted mb-4">
-                        Product: <strong><?= htmlspecialchars($product['name']) ?></strong>
-                        &mdash; $<?= number_format((float) $product['price'], 2) ?> each
-                    </p>
+                    <!-- Product context pill -->
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4"
+                         style="background:var(--brand-grad-soft);border:1px solid var(--border);">
+                        <i class="bi bi-box-seam" style="color:var(--brand-1);"></i>
+                        <span style="font-size:.875rem;font-weight:600;color:var(--text-main);">
+                            <?= htmlspecialchars($product['name']) ?>
+                        </span>
+                        <span class="gradient-text fw-bold">
+                            $<?= number_format((float) $product['price'], 2) ?>
+                        </span>
+                    </div>
 
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger">
@@ -126,73 +132,42 @@ require_once __DIR__ . '/../app/includes/header.php';
                           action="quote_request.php?product_id=<?= (int) $product['id'] ?>"
                           novalidate>
 
-                        <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Your Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                class="form-control"
+                            <input type="text" id="name" name="name" class="form-control"
                                 value="<?= htmlspecialchars($form_values['name']) ?>"
-                                placeholder="Jane Doe"
-                            >
+                                placeholder="Jane Doe">
                         </div>
 
-                        <!-- Email (required) -->
                         <div class="mb-3">
                             <label for="email" class="form-label">
                                 Email Address <span class="text-danger">*</span>
                             </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                class="form-control"
+                            <input type="email" id="email" name="email" class="form-control"
                                 value="<?= htmlspecialchars($form_values['email']) ?>"
-                                placeholder="you@example.com"
-                                required
-                            >
+                                placeholder="you@example.com" required>
                             <div class="form-text">We will contact you at this address.</div>
                         </div>
 
-                        <!-- Phone -->
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                class="form-control"
-                                value="<?= htmlspecialchars($form_values['phone']) ?>"
-                                placeholder="+1 555 000 0000"
-                            >
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control"
+                                    value="<?= htmlspecialchars($form_values['phone']) ?>"
+                                    placeholder="+1 555 000 0000">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="quantity" class="form-label">Quantity Needed</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control"
+                                    value="<?= htmlspecialchars($form_values['quantity']) ?>"
+                                    min="1">
+                            </div>
                         </div>
 
-                        <!-- Quantity -->
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity Needed</label>
-                            <input
-                                type="number"
-                                id="quantity"
-                                name="quantity"
-                                class="form-control"
-                                value="<?= htmlspecialchars($form_values['quantity']) ?>"
-                                min="1"
-                                style="width:120px;"
-                            >
-                        </div>
-
-                        <!-- Message -->
                         <div class="mb-4">
                             <label for="message" class="form-label">Message / Additional Requirements</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                class="form-control"
-                                rows="4"
-                                placeholder="Describe any special requirements, delivery timeline, etc."
-                            ><?= htmlspecialchars($form_values['message']) ?></textarea>
+                            <textarea id="message" name="message" class="form-control" rows="4"
+                                placeholder="Describe any special requirements, delivery timeline, etc."><?= htmlspecialchars($form_values['message']) ?></textarea>
                         </div>
 
                         <div class="d-flex gap-2">

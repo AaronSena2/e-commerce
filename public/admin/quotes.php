@@ -66,8 +66,8 @@ require_once __DIR__ . '/../../app/includes/header.php';
 
 <div class="container">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">
+    <div class="d-flex justify-content-between align-items-center mb-4 fade-up">
+        <h1 class="admin-page-title mb-0">
             <i class="bi bi-chat-quote me-2"></i>Quote Requests
         </h1>
         <a href="index.php" class="btn btn-outline-secondary btn-sm">
@@ -76,11 +76,11 @@ require_once __DIR__ . '/../../app/includes/header.php';
     </div>
 
     <?php if ($update_error): ?>
-        <div class="alert alert-danger"><?= $update_error ?></div>
+        <div class="alert alert-danger fade-up"><?= $update_error ?></div>
     <?php endif; ?>
 
     <!-- Status filter tabs -->
-    <ul class="nav nav-tabs mb-4">
+    <ul class="nav nav-tabs mb-4 fade-up fade-up-1">
         <li class="nav-item">
             <a class="nav-link <?= $filter_status === '' ? 'active' : '' ?>" href="quotes.php">
                 All
@@ -97,15 +97,17 @@ require_once __DIR__ . '/../../app/includes/header.php';
     </ul>
 
     <?php if (empty($quotes)): ?>
-        <div class="alert alert-secondary">
+        <div class="alert alert-secondary fade-up fade-up-1">
             No quote requests found<?= $filter_status !== '' ? ' for status <strong>' . htmlspecialchars(ucfirst($filter_status)) . '</strong>' : '' ?>.
         </div>
     <?php else: ?>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-dark">
+        <div class="card fade-up fade-up-1">
+            <div class="card-body p-0">
+            <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="ps-4">#</th>
                         <th>Date</th>
                         <th>Product</th>
                         <th>Name</th>
@@ -114,20 +116,20 @@ require_once __DIR__ . '/../../app/includes/header.php';
                         <th>Qty</th>
                         <th>Status</th>
                         <th>Message</th>
-                        <th>Update</th>
+                        <th class="pe-4">Update</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($quotes as $qr): ?>
                         <tr>
-                            <td><?= (int) $qr['id'] ?></td>
+                            <td class="ps-4 fw-semibold"><?= (int) $qr['id'] ?></td>
                             <td class="text-nowrap text-muted small">
                                 <?= htmlspecialchars(date('Y-m-d', strtotime($qr['created_at']))) ?>
                             </td>
                             <td>
                                 <?php if (!empty($qr['product_name'])): ?>
                                     <a href="<?= $base_url ?>/public/product.php?id=<?= (int) $qr['product_id'] ?>"
-                                       class="text-decoration-none">
+                                       class="text-decoration-none fw-semibold" style="color:var(--brand-1);">
                                         <?= htmlspecialchars($qr['product_name']) ?>
                                     </a>
                                 <?php else: ?>
@@ -152,7 +154,7 @@ require_once __DIR__ . '/../../app/includes/header.php';
                                     —
                                 <?php endif; ?>
                             </td>
-                            <td>
+                            <td class="pe-4">
                                 <form method="post" action="quotes.php" class="d-flex gap-1 align-items-center">
                                     <input type="hidden" name="request_id"    value="<?= (int) $qr['id'] ?>">
                                     <input type="hidden" name="status_filter" value="<?= htmlspecialchars($filter_status) ?>">
@@ -174,8 +176,10 @@ require_once __DIR__ . '/../../app/includes/header.php';
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
-        <p class="text-muted small"><?= count($quotes) ?> request(s) shown.</p>
+            </div><!-- /table-responsive -->
+            </div><!-- /card-body -->
+        </div><!-- /card -->
+        <p class="text-muted small mt-2"><?= count($quotes) ?> request(s) shown.</p>
     <?php endif; ?>
 
 </div><!-- /container -->
