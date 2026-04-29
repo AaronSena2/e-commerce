@@ -1,0 +1,113 @@
+/* ============================================================
+   E-Commerce MVP — Custom Styles
+   Bootstrap 5 is loaded via CDN; only tweaks go here.
+   ============================================================ */
+
+/* ---------------------------
+   Global
+   --------------------------- */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ---------------------------
+   Navbar
+   --------------------------- */
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* ---------------------------
+   Product cards
+   --------------------------- */
+.product-card {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    border: none;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+}
+
+.product-card .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    background-color: #e9ecef;
+}
+
+.product-card .card-img-placeholder {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9ecef;
+    color: #adb5bd;
+    font-size: 4rem;
+}
+
+.product-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-card .price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+/* ---------------------------
+   Cart badge
+   --------------------------- */
+.cart-badge {
+    font-size: 0.65rem;
+    top: -4px;
+    right: -8px;
+}
+
+/* ---------------------------
+   Cart table
+   --------------------------- */
+.cart-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    background-color: #e9ecef;
+}
+
+/* ---------------------------
+   Order success
+   --------------------------- */
+.order-success-icon {
+    font-size: 4rem;
+    color: #198754;
+}
+
+/* ---------------------------
+   Footer
+   --------------------------- */
+footer {
+    background-color: #212529;
+    color: #adb5bd;
+    padding: 1.5rem 0;
+    margin-top: 4rem;
+    font-size: 0.875rem;
+}
+
+footer a {
+    color: #adb5bd;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fff;
+}
