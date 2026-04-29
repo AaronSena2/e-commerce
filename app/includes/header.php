@@ -9,10 +9,13 @@
  */
 
 // Determine root-relative base path so assets work regardless of sub-folder depth.
-// All public pages live directly inside /public/, so the base is one level up.
-$base_url = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/..';
-// Normalize double-slashes just in case
-$base_url = preg_replace('#/+#', '/', $base_url);
+// Pages in /public/ are one level up; admin pages (/public/admin/) pre-set $base_url
+// before including this file, so we skip recomputing it when it is already set.
+if (!isset($base_url)) {
+    $base_url = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/..';
+    // Normalize double-slashes just in case
+    $base_url = preg_replace('#/+#', '/', $base_url);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +64,28 @@ $base_url = preg_replace('#/+#', '/', $base_url);
                     <a class="nav-link" href="<?= $base_url ?>/public/index.php">
                         <i class="bi bi-grid me-1"></i>Products
                     </a>
+                </li>
+            </ul>
+
+            <!-- Right side: Admin link + Cart -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-speedometer2 me-1"></i>Admin
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="<?= $base_url ?>/public/admin/index.php">
+                                <i class="bi bi-house me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= $base_url ?>/public/admin/quotes.php">
+                                <i class="bi bi-chat-quote me-2"></i>Quote Requests
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
 

@@ -58,6 +58,27 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------
+-- quote_requests
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `quote_requests` (
+    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `product_id` INT UNSIGNED NOT NULL,
+    `name`       VARCHAR(255)  DEFAULT NULL,
+    `email`      VARCHAR(255)  NOT NULL,
+    `phone`      VARCHAR(50)   DEFAULT NULL,
+    `quantity`   INT UNSIGNED  DEFAULT 1,
+    `message`    TEXT          DEFAULT NULL,
+    `status`     ENUM('new','processing','quoted','closed') NOT NULL DEFAULT 'new',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `idx_qr_product_id` (`product_id`),
+    INDEX `idx_qr_status`     (`status`),
+    INDEX `idx_qr_created_at` (`created_at`),
+    CONSTRAINT `fk_quote_requests_product`
+        FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
 -- Seed products
 -- ------------------------------------------------------------
 INSERT INTO `products` (`name`, `description`, `price`, `image`, `stock`) VALUES

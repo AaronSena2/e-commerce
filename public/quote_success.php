@@ -1,0 +1,62 @@
+<?php
+/**
+ * quote_success.php — Confirmation page shown after a successful quote request.
+ */
+
+require_once __DIR__ . '/../app/config/config.php';
+require_once __DIR__ . '/../app/lib/session.php';
+require_once __DIR__ . '/../app/models/QuoteRequest.php';
+
+$request_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+$request = null;
+if ($request_id && $request_id > 0) {
+    try {
+        $request = quote_request_get_by_id($request_id);
+    } catch (RuntimeException $e) {
+        $request = null;
+    }
+}
+
+$page_title = 'Quote Request Received — ShopMVP';
+require_once __DIR__ . '/../app/includes/header.php';
+?>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center py-5">
+
+            <div class="mb-4">
+                <i class="bi bi-check-circle-fill text-success" style="font-size:4rem;"></i>
+            </div>
+
+            <h1 class="h3 mb-3">Quote Request Received!</h1>
+
+            <?php if ($request): ?>
+                <p class="text-muted mb-1">
+                    Your request for
+                    <strong><?= htmlspecialchars($request['product_name'] ?? 'the product') ?></strong>
+                    has been submitted successfully.
+                </p>
+                <p class="text-muted mb-4">
+                    We will contact you at
+                    <strong><?= htmlspecialchars($request['email']) ?></strong>.
+                </p>
+            <?php else: ?>
+                <p class="text-muted mb-4">
+                    Your quote request has been submitted. We will be in touch soon.
+                </p>
+            <?php endif; ?>
+
+            <a href="index.php" class="btn btn-primary me-2">
+                <i class="bi bi-grid me-1"></i>Continue Shopping
+            </a>
+            <a href="index.php" class="btn btn-outline-secondary">
+                <i class="bi bi-house me-1"></i>Home
+            </a>
+
+        </div>
+    </div>
+</div><!-- /container -->
+
+<?php require_once __DIR__ . '/../app/includes/footer.php'; ?>

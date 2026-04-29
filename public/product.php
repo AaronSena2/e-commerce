@@ -136,12 +136,23 @@ require_once __DIR__ . '/../app/includes/header.php';
                         <i class="bi bi-cart3 me-1"></i>View Cart
                     </a>
                 </form>
+
+                <!-- Request a Quote -->
+                <hr class="my-4">
+                <a href="quote_request.php?product_id=<?= (int) $product['id'] ?>"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-envelope me-2"></i>Request a Quote
+                </a>
             <?php else: ?>
                 <div class="alert alert-secondary">
                     <i class="bi bi-x-circle me-2"></i>This item is currently out of stock.
                 </div>
-                <a href="index.php" class="btn btn-outline-primary">
+                <a href="index.php" class="btn btn-outline-primary me-2">
                     <i class="bi bi-arrow-left me-1"></i>Back to Products
+                </a>
+                <a href="quote_request.php?product_id=<?= (int) $product['id'] ?>"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-envelope me-2"></i>Request a Quote
                 </a>
             <?php endif; ?>
         </div>
