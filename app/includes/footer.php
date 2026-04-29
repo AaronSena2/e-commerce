@@ -17,11 +17,7 @@
 </footer>
 
 <!-- Bootstrap 5 JS Bundle (CDN) -->
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmf5MRn9lci2Yw7y2TLXFXgGH0T"
-    crossorigin="anonymous">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Custom cart JS -->
 <script src="<?= $base_url ?>/assets/js/cart.js"></script>

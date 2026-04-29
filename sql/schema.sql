@@ -82,7 +82,7 @@ INSERT INTO `products` (`name`, `description`, `price`, `image`, `stock`) VALUES
  89.99, 'webcam.jpg', 45),
 
 ('Smart Phone Stand',
- 'Adjustable aluminium phone holder for desk. 360° rotation, compatible with all smartphones and small tablets.',
+ 'Adjustable aluminum phone holder for desk. 360° rotation, compatible with all smartphones and small tablets.',
  14.99, 'phone-stand.jpg', 300),
 
 ('Cable Management Kit',
