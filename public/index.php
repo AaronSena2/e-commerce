@@ -36,7 +36,7 @@ $categories = [
 ];
 ?>
 
-<!-- Mobile horizontal category bar — visible only on < lg -->
+<!-- Mobile horizontal category bar — visible only below lg -->
 <div class="mp-cat-bar d-flex d-lg-none">
     <?php foreach ($categories as $cat): ?>
         <a href="#" class="mp-cat-pill<?= !empty($cat['active']) ? ' active' : '' ?>">
@@ -46,97 +46,94 @@ $categories = [
     <?php endforeach; ?>
 </div>
 
-<!-- Marketplace layout: Bootstrap row/col for reliable sidebar + content split -->
-<div class="container-fluid px-0">
-    <div class="row g-0 mp-row">
+<!-- ── Marketplace two-pane layout ── -->
+<div class="mp-wrapper">
 
-        <!-- ── Sidebar column — hidden below lg ── -->
-        <div class="col-auto d-none d-lg-block mp-sidebar-col">
-            <aside class="mp-sidebar">
-                <div class="mp-sidebar-title">Marketplace</div>
-
-                <!-- Sidebar search -->
-                <div class="mp-sidebar-search">
-                    <i class="bi bi-search"></i>
-                    <input type="text" placeholder="Search Marketplace">
-                </div>
-
-                <!-- Create listing CTA -->
-                <a href="<?= $base_url ?>/public/quote_request.php" class="mp-create-btn">
-                    <i class="bi bi-plus-lg"></i> Create new listing
-                </a>
-
-                <hr class="mp-divider">
-
-                <!-- Browse by category -->
-                <p class="mp-section-label">Browse by category</p>
-                <?php foreach ($categories as $cat): ?>
-                    <a href="#" class="mp-cat-link<?= !empty($cat['active']) ? ' active' : '' ?>">
-                        <span class="mp-cat-icon"><i class="bi <?= $cat['icon'] ?>"></i></span>
-                        <?= htmlspecialchars($cat['label']) ?>
-                    </a>
-                <?php endforeach; ?>
-
-                <hr class="mp-divider">
-
-                <p class="mp-sidebar-footer">
-                    <a href="#">Privacy</a> ·
-                    <a href="#">Terms</a> ·
-                    <a href="#">Cookies</a><br>
-                    &copy; <?= date('Y') ?> ShopMVP
-                </p>
-            </aside>
+    <!-- Sidebar — d-none d-lg-block via Bootstrap utilities -->
+    <aside class="mp-sidebar d-none d-lg-block">
+        <div class="mp-sidebar-title">
+            <i class="bi bi-shop-window"></i> Marketplace
         </div>
 
-        <!-- ── Main content column ── -->
-        <div class="col min-width-0">
-            <div class="mp-content">
+        <div class="mp-sidebar-search">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search Marketplace">
+        </div>
 
-                <?php if (isset($error)): ?>
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        Could not load products. Please check your database connection.<br>
-                        <small class="text-muted"><?= htmlspecialchars($error) ?></small>
+        <a href="<?= $base_url ?>/public/quote_request.php" class="mp-create-btn">
+            <i class="bi bi-plus-lg"></i> Create new listing
+        </a>
+
+        <hr class="mp-divider">
+
+        <p class="mp-section-label">Browse by category</p>
+        <?php foreach ($categories as $cat): ?>
+            <a href="#" class="mp-cat-link<?= !empty($cat['active']) ? ' active' : '' ?>">
+                <span class="mp-cat-icon"><i class="bi <?= $cat['icon'] ?>"></i></span>
+                <?= htmlspecialchars($cat['label']) ?>
+            </a>
+        <?php endforeach; ?>
+
+        <hr class="mp-divider">
+
+        <p class="mp-sidebar-footer">
+            <a href="#">Privacy</a> ·
+            <a href="#">Terms</a> ·
+            <a href="#">Cookies</a><br>
+            &copy; <?= date('Y') ?> ShopMVP
+        </p>
+    </aside>
+
+    <!-- ── Main content ── -->
+    <div class="mp-main">
+        <div class="mp-content">
+
+            <?php if (isset($error)): ?>
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Could not load products. Please check your database connection.<br>
+                    <small class="text-muted"><?= htmlspecialchars($error) ?></small>
+                </div>
+            <?php else: ?>
+
+                <h2 class="mp-content-title">Today's picks</h2>
+
+                <?php if (empty($products)): ?>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>No products found.
+                        Import <code>sql/schema.sql</code> to add seed data.
                     </div>
                 <?php else: ?>
-
-                    <h2 class="mp-content-title">Today's picks</h2>
-
-                    <?php if (empty($products)): ?>
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>No products found.
-                            Import <code>sql/schema.sql</code> to add seed data.
-                        </div>
-                    <?php else: ?>
-                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-xl-4 g-3">
-                            <?php foreach ($products as $i => $product): ?>
-                                <?php $inStock = (int) $product['stock'] > 0; ?>
-                                <div class="col fade-up" style="animation-delay:<?= min($i * 0.05, 0.4) ?>s">
-                                    <a href="product.php?id=<?= (int) $product['id'] ?>" class="text-decoration-none">
-                                        <div class="card product-card h-100<?= $inStock ? '' : ' out-of-stock' ?>">
-                                            <div class="card-img-wrapper">
-                                                <div class="card-img-placeholder">
-                                                    <i class="bi bi-box-seam"></i>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <span class="price">$<?= number_format((float) $product['price'], 2) ?></span>
-                                                <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
-                                                <p class="card-meta mb-0"><?= $inStock ? 'Available' : 'Sold Out' ?></p>
+                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
+                        <?php foreach ($products as $i => $product): ?>
+                            <?php $inStock = (int) $product['stock'] > 0; ?>
+                            <div class="col fade-up" style="animation-delay:<?= min($i * 0.05, 0.4) ?>s">
+                                <a href="product.php?id=<?= (int) $product['id'] ?>" class="text-decoration-none">
+                                    <div class="card product-card h-100<?= $inStock ? '' : ' out-of-stock' ?>">
+                                        <div class="card-img-wrapper">
+                                            <div class="card-img-placeholder">
+                                                <i class="bi bi-box-seam"></i>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-
+                                        <div class="card-body">
+                                            <span class="price">$<?= number_format((float) $product['price'], 2) ?></span>
+                                            <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
+                                            <span class="card-stock-badge <?= $inStock ? 'in-stock' : 'sold-out' ?>">
+                                                <?= $inStock ? 'Available' : 'Sold Out' ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
 
-            </div><!-- /mp-content -->
-        </div><!-- /col -->
+            <?php endif; ?>
 
-    </div><!-- /row -->
-</div><!-- /container-fluid -->
+        </div><!-- /mp-content -->
+    </div><!-- /mp-main -->
+
+</div><!-- /mp-wrapper -->
 
 <?php require_once __DIR__ . '/../app/includes/footer.php'; ?>

@@ -79,6 +79,7 @@ body {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border-bottom: 1px solid var(--fb-border);
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
     height: var(--fb-navbar-h);
     padding-top: 0;
     padding-bottom: 0;
@@ -264,18 +265,19 @@ main {
    Use .card.product-card for higher specificity over the generic .card rule
    --------------------------- */
 .card.product-card {
-    transition: box-shadow var(--transition), transform var(--transition);
-    border: none !important;
-    border-radius: 12px !important;
+    transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    border: 1.5px solid var(--fb-border) !important;
+    border-radius: 14px !important;
     overflow: hidden;
     background: var(--surface);
-    box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
     cursor: pointer;
     position: relative;
 }
 .card.product-card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,.22);
-    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(24,119,242,.14), 0 2px 8px rgba(0,0,0,.06);
+    transform: translateY(-4px);
+    border-color: rgba(24,119,242,.25) !important;
 }
 
 /* Square image wrapper — 1:1 aspect ratio */
@@ -284,7 +286,7 @@ main {
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background: #e4e6ea;
+    background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
 }
 .product-card .card-img-top {
     width: 100%;
@@ -302,12 +304,14 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e4e6ea;
-    color: #90949c;
+    background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+    color: var(--fb-blue);
     font-size: 3.5rem;
     transition: background var(--transition);
 }
-.product-card:hover .card-img-placeholder { background: #d8dce5; }
+.product-card:hover .card-img-placeholder {
+    background: linear-gradient(135deg, #bfdbfe 0%, #e0eaff 100%);
+}
 
 /* Out-of-stock dim overlay */
 .product-card.out-of-stock .card-img-wrapper::after {
@@ -331,20 +335,21 @@ main {
 
 /* Price — large, dark, bold (FB style) */
 .product-card .price {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1c1e21;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--fb-text);
     line-height: 1.2;
     display: block;
-    margin-bottom: .2rem;
+    margin-bottom: .25rem;
+    letter-spacing: -.01em;
 }
 
 /* Title — 2-line clamp */
 .product-card .card-title {
     font-size: .875rem;
-    font-weight: 400;
+    font-weight: 500;
     color: #1c1e21;
-    margin-bottom: .2rem;
+    margin-bottom: .4rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -352,11 +357,23 @@ main {
     line-height: 1.35;
 }
 
-/* Condition / stock line */
-.product-card .card-meta {
-    font-size: .78rem;
-    color: #65676b;
-    font-weight: 500;
+/* Stock status badge */
+.card-stock-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: .18rem .6rem;
+    border-radius: 99px;
+    font-size: .73rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+}
+.card-stock-badge.in-stock {
+    background: #ecfdf5;
+    color: #059669;
+}
+.card-stock-badge.sold-out {
+    background: #fef2f2;
+    color: #dc2626;
 }
 
 /* ---------------------------
@@ -796,31 +813,27 @@ footer.site-footer .footer-bottom {
 .fade-up-4 { animation-delay: .24s; }
 
 /* ============================================================
-   Facebook Marketplace Layout — Bootstrap row/col based
+   Facebook Marketplace Layout
    ============================================================ */
 
-/* Ensure the Bootstrap row fills the viewport height */
-.mp-row {
-    min-height: calc(100vh - var(--fb-navbar-h));
-    align-items: flex-start;
-}
-
 /* ---------------------------
-   Sidebar column wrapper
-   (Bootstrap col-auto keeps it at its natural width)
+   Two-pane wrapper — simple flexbox, guaranteed to work
    --------------------------- */
-.mp-sidebar-col {
-    /* Nothing extra needed — col-auto + mp-sidebar width handles it */
+.mp-wrapper {
+    display: flex;
+    align-items: flex-start;
+    min-height: calc(100vh - var(--fb-navbar-h));
 }
 
 /* ---------------------------
-   Left sidebar
+   Left sidebar (Bootstrap d-none d-lg-block applied on the element)
    --------------------------- */
 .mp-sidebar {
-    width: var(--fb-sidebar-w);   /* 360px */
+    width: 280px;
+    flex-shrink: 0;
     background: #fff;
     border-right: 1px solid var(--fb-border);
-    padding: .75rem 0 2rem;
+    padding: 1rem 0 2rem;
     position: sticky;
     top: var(--fb-navbar-h);
     height: calc(100vh - var(--fb-navbar-h));
@@ -832,11 +845,16 @@ footer.site-footer .footer-bottom {
 .mp-sidebar::-webkit-scrollbar-thumb { background: #c4c7cc; border-radius: 99px; }
 
 .mp-sidebar-title {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--fb-text);
     padding: .25rem 1rem .75rem;
+    letter-spacing: -.03em;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
 }
+.mp-sidebar-title .bi { color: var(--fb-blue); }
 
 /* Search inside sidebar */
 .mp-sidebar-search {
@@ -844,11 +862,16 @@ footer.site-footer .footer-bottom {
     align-items: center;
     gap: .4rem;
     background: var(--fb-bg);
-    border-radius: 99px;
-    padding: .55rem 1rem;
-    margin: 0 1rem .25rem;
+    border-radius: 12px;
+    padding: .6rem 1rem;
+    margin: 0 .875rem .5rem;
+    transition: background var(--transition), box-shadow var(--transition);
 }
-.mp-sidebar-search i { color: var(--fb-text-2); font-size: .9rem; flex-shrink: 0; }
+.mp-sidebar-search:focus-within {
+    background: var(--fb-blue-soft);
+    box-shadow: 0 0 0 2px rgba(24,119,242,.2);
+}
+.mp-sidebar-search i { color: var(--fb-blue); font-size: .9rem; flex-shrink: 0; }
 .mp-sidebar-search input {
     background: transparent;
     border: none;
@@ -859,102 +882,115 @@ footer.site-footer .footer-bottom {
 }
 .mp-sidebar-search input::placeholder { color: var(--fb-text-2); }
 
-/* "Create new listing" CTA */
+/* "Create new listing" gradient button */
 .mp-create-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: .5rem;
-    margin: .75rem 1rem .25rem;
-    padding: .6rem 1rem;
-    background: var(--fb-blue);
+    margin: .5rem .875rem .5rem;
+    padding: .65rem 1rem;
+    background: var(--brand-grad);
     color: #fff !important;
-    font-weight: 600;
-    font-size: .9rem;
-    border-radius: 8px;
+    font-weight: 700;
+    font-size: .875rem;
+    border-radius: 10px;
     text-decoration: none;
-    transition: background var(--transition);
-    border: none;
-    cursor: pointer;
-    width: calc(100% - 2rem);
+    transition: opacity var(--transition), box-shadow var(--transition), transform var(--transition);
+    box-shadow: 0 2px 10px rgba(24,119,242,.3);
+    width: calc(100% - 1.75rem);
 }
-.mp-create-btn:hover { background: var(--fb-blue-hover); color: #fff !important; }
+.mp-create-btn:hover {
+    opacity: .92;
+    box-shadow: 0 4px 18px rgba(24,119,242,.45);
+    transform: translateY(-1px);
+    color: #fff !important;
+}
 
 /* Divider */
 .mp-divider {
     border: none;
     border-top: 1px solid var(--fb-border);
-    margin: .75rem 0;
+    margin: .6rem 0;
 }
 
 /* Section label */
 .mp-section-label {
-    font-size: .72rem;
-    font-weight: 700;
+    font-size: .7rem;
+    font-weight: 800;
     color: var(--fb-text-2);
     text-transform: uppercase;
-    letter-spacing: .06em;
-    padding: .25rem 1rem .4rem;
+    letter-spacing: .08em;
+    padding: .5rem .875rem .3rem;
     margin: 0;
 }
 
-/* Category link row */
+/* Category link rows */
 .mp-cat-link {
     display: flex;
     align-items: center;
-    gap: .75rem;
-    padding: .55rem 1rem;
+    gap: .7rem;
+    padding: .45rem .875rem;
     color: var(--fb-text);
     text-decoration: none;
-    font-size: .9375rem;
+    font-size: .9rem;
     font-weight: 500;
-    transition: background var(--transition);
+    transition: background var(--transition), color var(--transition);
+    border-radius: 10px;
+    margin: 0 .25rem;
 }
 .mp-cat-link:hover { background: var(--fb-bg); color: var(--fb-text); }
-.mp-cat-link.active { background: var(--fb-blue-soft); color: var(--fb-blue); }
+.mp-cat-link.active {
+    background: var(--fb-blue-soft);
+    color: var(--fb-blue);
+    font-weight: 600;
+}
 .mp-cat-link.active .mp-cat-icon { background: var(--fb-blue); color: #fff; }
 
 .mp-cat-icon {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: var(--fb-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: .95rem;
     flex-shrink: 0;
-    color: var(--fb-text);
+    color: var(--fb-text-2);
     transition: background var(--transition), color var(--transition);
 }
 
 /* Privacy footer inside sidebar */
 .mp-sidebar-footer {
-    font-size: .75rem;
+    font-size: .72rem;
     color: var(--fb-text-2);
-    padding: .25rem 1rem 0;
-    line-height: 1.6;
+    padding: .5rem .875rem 0;
+    line-height: 1.7;
 }
 .mp-sidebar-footer a { color: var(--fb-text-2); text-decoration: none; }
-.mp-sidebar-footer a:hover { text-decoration: underline; }
+.mp-sidebar-footer a:hover { color: var(--fb-blue); text-decoration: underline; }
 
 /* ---------------------------
    Main content pane
    --------------------------- */
-.mp-content {
-    padding: 1.5rem 1.75rem 2rem;
+.mp-main {
+    flex: 1;
     min-width: 0;
+    overflow: hidden;
+}
+
+.mp-content {
+    padding: 1.75rem 2rem 2.5rem;
 }
 
 .mp-content-title {
-    font-size: 1.35rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: var(--fb-text);
     margin-bottom: 1.25rem;
+    letter-spacing: -.03em;
 }
-
-/* Ensure Bootstrap col doesn't overflow */
-.min-width-0 { min-width: 0; }
 
 /* ---------------------------
    Mobile: horizontal category pill bar
@@ -963,9 +999,10 @@ footer.site-footer .footer-bottom {
 .mp-cat-bar {
     overflow-x: auto;
     gap: .5rem;
-    padding: .6rem 1rem;
+    padding: .75rem 1rem;
     background: #fff;
     border-bottom: 1px solid var(--fb-border);
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
     scrollbar-width: none;
     flex-wrap: nowrap;
 }
@@ -980,16 +1017,16 @@ footer.site-footer .footer-bottom {
     border-radius: 99px;
     background: var(--fb-bg);
     color: var(--fb-text);
-    font-size: .85rem;
+    font-size: .82rem;
     font-weight: 600;
     text-decoration: none;
     flex-shrink: 0;
-    transition: background var(--transition);
+    transition: background var(--transition), color var(--transition), transform var(--transition);
 }
-.mp-cat-pill:hover { background: var(--fb-border); color: var(--fb-text); }
+.mp-cat-pill:hover { background: #dde1e8; color: var(--fb-text); transform: translateY(-1px); }
 .mp-cat-pill.active { background: var(--fb-blue); color: #fff; }
 
 /* Tighten content padding on small screens */
 @media (max-width: 991.98px) {
-    .mp-content { padding: 1rem; }
+    .mp-content { padding: 1.25rem 1rem 2rem; }
 }
