@@ -51,9 +51,12 @@ require_once __DIR__ . '/../app/includes/header.php';
             <a href="index.php" class="btn btn-primary me-2">
                 <i class="bi bi-grid me-1"></i>Continue Shopping
             </a>
-            <a href="index.php" class="btn btn-outline-secondary">
-                <i class="bi bi-house me-1"></i>Home
-            </a>
+            <?php if ($request): ?>
+                <a href="product.php?id=<?= (int) $request['product_id'] ?>"
+                   class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Product
+                </a>
+            <?php endif; ?>
 
         </div>
     </div>
