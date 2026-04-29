@@ -7,19 +7,32 @@
    Design Tokens
    --------------------------- */
 :root {
-    --brand-1: #6366f1;   /* indigo */
-    --brand-2: #8b5cf6;   /* violet */
-    --brand-3: #ec4899;   /* pink accent */
-    --brand-grad: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 60%, var(--brand-3) 100%);
-    --brand-grad-soft: linear-gradient(135deg, rgba(99,102,241,.08) 0%, rgba(139,92,246,.08) 100%);
+    /* Facebook theme */
+    --fb-blue:       #1877F2;
+    --fb-blue-hover: #166FE5;
+    --fb-blue-soft:  #e7f3ff;
+    --fb-bg:         #f0f2f5;
+    --fb-surface:    #ffffff;
+    --fb-border:     #e4e6ea;
+    --fb-text:       #050505;
+    --fb-text-2:     #65676b;
+    --fb-navbar-h:   56px;
+    --fb-sidebar-w:  360px;
+
+    /* Legacy brand tokens (used by admin pages & buttons) */
+    --brand-1: #1877F2;
+    --brand-2: #166FE5;
+    --brand-3: #1877F2;
+    --brand-grad: linear-gradient(135deg, #1877F2 0%, #166FE5 100%);
+    --brand-grad-soft: rgba(24,119,242,.08);
 
     --surface: #ffffff;
-    --surface-2: #f5f3ff;   /* faint violet tint */
-    --surface-3: #f0f2f5;   /* FB Marketplace page gray */
-    --border: rgba(99,102,241,.15);
+    --surface-2: #e7f3ff;
+    --surface-3: #f0f2f5;
+    --border: #e4e6ea;
 
-    --text-main: #1e1b4b;
-    --text-muted: #6b7280;
+    --text-main: #050505;
+    --text-muted: #65676b;
     --text-on-brand: #ffffff;
 
     --radius-sm: 0.5rem;
@@ -27,10 +40,10 @@
     --radius-lg: 1.25rem;
     --radius-xl: 1.75rem;
 
-    --shadow-sm: 0 1px 3px rgba(99,102,241,.08), 0 1px 2px rgba(0,0,0,.04);
-    --shadow-md: 0 4px 16px rgba(99,102,241,.12), 0 2px 6px rgba(0,0,0,.06);
-    --shadow-lg: 0 12px 40px rgba(99,102,241,.18), 0 4px 12px rgba(0,0,0,.06);
-    --shadow-glow: 0 0 20px rgba(99,102,241,.35);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.16), 0 4px 12px rgba(0,0,0,.06);
+    --shadow-glow: 0 0 20px rgba(24,119,242,.35);
 
     --transition: 0.22s cubic-bezier(.4,0,.2,1);
 }
@@ -43,11 +56,9 @@
 html { scroll-behavior: smooth; }
 
 body {
-    background-color: var(--surface-3);
-    background-image:
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,.12) 0%, transparent 60%);
+    background-color: var(--fb-bg);
     font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-    color: var(--text-main);
+    color: var(--fb-text);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -61,33 +72,55 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--brand-1); }
 
 /* ---------------------------
-   Navbar
+   Navbar — Facebook style (white)
    --------------------------- */
 .navbar {
-    background: rgba(15,10,40,.82) !important;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    padding-top: .65rem;
-    padding-bottom: .65rem;
+    background: #fff !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid var(--fb-border);
+    height: var(--fb-navbar-h);
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .navbar-brand {
     font-weight: 800;
     font-size: 1.25rem;
     letter-spacing: -.5px;
-    background: var(--brand-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--fb-blue) !important;
+    background: none;
+    -webkit-text-fill-color: var(--fb-blue);
+    background-clip: unset;
     transition: opacity var(--transition);
 }
 .navbar-brand:hover { opacity: .85; }
+.navbar-brand .bi { color: var(--fb-blue); -webkit-text-fill-color: var(--fb-blue); }
 
-.navbar-brand .bi { -webkit-text-fill-color: initial; color: var(--brand-1); }
+/* FB-style search bar inside navbar */
+.fb-nav-search {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--fb-bg);
+    border-radius: 99px;
+    padding: .45rem .9rem;
+    max-width: 220px;
+    width: 100%;
+}
+.fb-nav-search i { color: var(--fb-blue); font-size: .95rem; flex-shrink: 0; }
+.fb-nav-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: .875rem;
+    color: var(--fb-text);
+    width: 100%;
+}
+.fb-nav-search input::placeholder { color: var(--fb-text-2); }
 
 .navbar .nav-link {
-    color: rgba(255,255,255,.75) !important;
+    color: var(--fb-text-2) !important;
     font-size: .875rem;
     font-weight: 500;
     padding: .45rem .75rem !important;
@@ -96,46 +129,44 @@ body {
 }
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
-    color: #fff !important;
-    background: rgba(255,255,255,.08);
+    color: var(--fb-blue) !important;
+    background: var(--fb-blue-soft);
 }
 
 /* Dropdown */
 .dropdown-menu {
-    background: rgba(15,10,40,.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,.08);
+    background: #fff;
+    border: 1px solid var(--fb-border);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 32px rgba(0,0,0,.14);
     padding: .4rem;
     min-width: 13rem;
 }
 .dropdown-item {
-    color: rgba(255,255,255,.8);
+    color: var(--fb-text);
     border-radius: var(--radius-sm);
     font-size: .875rem;
     padding: .5rem .85rem;
-    transition: background var(--transition), color var(--transition);
+    transition: background var(--transition);
 }
 .dropdown-item:hover {
-    background: rgba(99,102,241,.25);
-    color: #fff;
+    background: var(--fb-bg);
+    color: var(--fb-text);
 }
 
 /* Cart button in nav */
 .navbar .btn-cart {
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.12);
-    color: rgba(255,255,255,.9);
+    background: var(--fb-blue-soft);
+    border: none;
+    color: var(--fb-blue);
     border-radius: var(--radius-md);
     font-size: .875rem;
-    font-weight: 500;
-    transition: background var(--transition), border-color var(--transition);
+    font-weight: 600;
+    transition: background var(--transition);
 }
 .navbar .btn-cart:hover {
-    background: rgba(99,102,241,.35);
-    border-color: rgba(99,102,241,.4);
-    color: #fff;
+    background: #cce3ff;
+    color: var(--fb-blue);
 }
 
 .cart-badge {
@@ -146,19 +177,31 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--brand-3) !important;
-    box-shadow: 0 0 8px rgba(236,72,153,.6);
+    background: #e02020 !important;
+    box-shadow: none;
 }
+
+/* Navbar toggler (mobile) */
+.navbar-toggler {
+    border: none;
+    color: var(--fb-text-2);
+}
+.navbar-toggler:focus { box-shadow: none; }
 
 /* ---------------------------
    Page main wrapper
    --------------------------- */
 main.py-4 {
-    min-height: calc(100vh - 64px - 120px);
+    min-height: calc(100vh - var(--fb-navbar-h) - 120px);
+}
+
+/* Cancel py-4 padding when marketplace layout is active */
+main:has(.mp-layout) {
+    padding: 0 !important;
 }
 
 /* ---------------------------
-   Hero (index page)
+   Hero (index page — kept for non-marketplace pages)
    --------------------------- */
 .shop-hero {
     background: var(--brand-grad);
@@ -212,16 +255,13 @@ main.py-4 {
 .section-heading {
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--fb-text);
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 .section-heading .bi {
-    background: var(--brand-grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--fb-blue);
 }
 
 /* ---------------------------
@@ -380,45 +420,45 @@ main.py-4 {
    Cards (generic)
    --------------------------- */
 .card {
-    border: 1px solid var(--border) !important;
+    border: 1px solid var(--fb-border) !important;
     border-radius: var(--radius-lg) !important;
     box-shadow: var(--shadow-sm);
     background: var(--surface);
 }
 .card-header {
     background: transparent;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--fb-border);
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--fb-text);
     padding: 1rem 1.25rem;
 }
 .card-header .bi {
-    color: var(--brand-1);
+    color: var(--fb-blue);
 }
 
 /* ---------------------------
    Forms
    --------------------------- */
 .form-control, .form-select {
-    border: 1.5px solid #e0d9ff;
+    border: 1.5px solid var(--fb-border);
     border-radius: var(--radius-sm);
-    background: #fafaff;
-    color: var(--text-main);
+    background: #fff;
+    color: var(--fb-text);
     transition: border-color var(--transition), box-shadow var(--transition);
     font-size: .9rem;
 }
 .form-control:focus, .form-select:focus {
-    border-color: var(--brand-1);
+    border-color: var(--fb-blue);
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(99,102,241,.18);
+    box-shadow: 0 0 0 3px rgba(24,119,242,.18);
 }
 .form-label {
     font-weight: 600;
     font-size: .85rem;
-    color: var(--text-main);
+    color: var(--fb-text);
     margin-bottom: .35rem;
 }
-.form-text { color: var(--text-muted); font-size: .8rem; }
+.form-text { color: var(--fb-text-2); font-size: .8rem; }
 
 /* ---------------------------
    Breadcrumb
@@ -672,15 +712,15 @@ main.py-4 {
 }
 
 /* ---------------------------
-   Footer
+   Footer — Facebook-inspired dark bar
    --------------------------- */
 footer.site-footer {
-    background: #0f0a28;
+    background: #1c1e21;
     color: rgba(255,255,255,.55);
-    padding: 3rem 0 1.5rem;
-    margin-top: 5rem;
+    padding: 2rem 0 1.25rem;
+    margin-top: 3rem;
     font-size: .875rem;
-    border-top: 1px solid rgba(99,102,241,.2);
+    border-top: 1px solid rgba(255,255,255,.08);
     position: relative;
 }
 footer.site-footer::before {
@@ -688,7 +728,7 @@ footer.site-footer::before {
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: var(--brand-grad);
+    background: var(--fb-blue);
 }
 footer.site-footer .footer-brand {
     font-size: 1.2rem;
@@ -758,3 +798,193 @@ footer.site-footer .footer-bottom {
 .fade-up-2 { animation-delay: .12s; }
 .fade-up-3 { animation-delay: .18s; }
 .fade-up-4 { animation-delay: .24s; }
+
+/* ============================================================
+   Facebook Marketplace Layout
+   ============================================================ */
+
+/* ---------------------------
+   Two-pane shell
+   --------------------------- */
+.mp-layout {
+    display: flex;
+    align-items: flex-start;
+    min-height: calc(100vh - var(--fb-navbar-h));
+}
+
+/* ---------------------------
+   Left sidebar
+   --------------------------- */
+.mp-sidebar {
+    width: var(--fb-sidebar-w);
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid var(--fb-border);
+    padding: .75rem 0 2rem;
+    position: sticky;
+    top: var(--fb-navbar-h);
+    height: calc(100vh - var(--fb-navbar-h));
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #c4c7cc transparent;
+}
+.mp-sidebar::-webkit-scrollbar { width: 4px; }
+.mp-sidebar::-webkit-scrollbar-thumb { background: #c4c7cc; border-radius: 99px; }
+
+.mp-sidebar-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--fb-text);
+    padding: .25rem 1rem .75rem;
+}
+
+/* Search row inside sidebar */
+.mp-sidebar-search {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--fb-bg);
+    border-radius: 99px;
+    padding: .55rem 1rem;
+    margin: 0 1rem .25rem;
+}
+.mp-sidebar-search i { color: var(--fb-text-2); font-size: .9rem; flex-shrink: 0; }
+.mp-sidebar-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: .875rem;
+    color: var(--fb-text);
+    width: 100%;
+}
+.mp-sidebar-search input::placeholder { color: var(--fb-text-2); }
+
+/* "Create new listing" CTA */
+.mp-create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    margin: .75rem 1rem .25rem;
+    padding: .6rem 1rem;
+    background: var(--fb-blue);
+    color: #fff !important;
+    font-weight: 600;
+    font-size: .9rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background var(--transition);
+    border: none;
+    cursor: pointer;
+    width: calc(100% - 2rem);
+}
+.mp-create-btn:hover { background: var(--fb-blue-hover); color: #fff !important; }
+
+/* Divider */
+.mp-divider {
+    border: none;
+    border-top: 1px solid var(--fb-border);
+    margin: .75rem 0;
+}
+
+/* Section label (e.g. "BROWSE BY CATEGORY") */
+.mp-section-label {
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--fb-text-2);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: .25rem 1rem .4rem;
+}
+
+/* Category link row */
+.mp-cat-link {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .55rem 1rem;
+    color: var(--fb-text);
+    text-decoration: none;
+    font-size: .9375rem;
+    font-weight: 500;
+    transition: background var(--transition);
+    border-radius: 0;
+}
+.mp-cat-link:hover { background: var(--fb-bg); color: var(--fb-text); }
+.mp-cat-link.active { background: var(--fb-blue-soft); color: var(--fb-blue); }
+.mp-cat-link.active .mp-cat-icon {
+    background: var(--fb-blue);
+    color: #fff;
+}
+
+.mp-cat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--fb-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: var(--fb-text);
+    transition: background var(--transition), color var(--transition);
+}
+
+/* ---------------------------
+   Main content pane
+   --------------------------- */
+.mp-content {
+    flex: 1;
+    padding: 1.5rem 1.75rem 2rem;
+    min-width: 0;
+}
+
+.mp-content-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--fb-text);
+    margin-bottom: 1.25rem;
+}
+
+/* ---------------------------
+   Mobile: show horizontal pill bar, hide sidebar
+   --------------------------- */
+@media (max-width: 991.98px) {
+    .mp-sidebar { display: none; }
+
+    .mp-content { padding: 1rem; }
+
+    .mp-cat-bar {
+        display: flex !important;
+    }
+}
+
+.mp-cat-bar {
+    display: none;
+    overflow-x: auto;
+    gap: .5rem;
+    padding: .6rem 1rem;
+    background: #fff;
+    border-bottom: 1px solid var(--fb-border);
+    scrollbar-width: none;
+}
+.mp-cat-bar::-webkit-scrollbar { display: none; }
+
+.mp-cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    white-space: nowrap;
+    padding: .4rem .9rem;
+    border-radius: 99px;
+    background: var(--fb-bg);
+    color: var(--fb-text);
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background var(--transition);
+}
+.mp-cat-pill:hover { background: var(--fb-border); color: var(--fb-text); }
+.mp-cat-pill.active { background: var(--fb-blue); color: #fff; }
