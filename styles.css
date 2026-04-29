@@ -1,0 +1,363 @@
+/* ============================================================
+   Design tokens
+   ============================================================ */
+:root {
+  --mp-primary:       #1877f2;
+  --mp-primary-hover: #145dbf;
+  --mp-surface:       #ffffff;
+  --mp-bg:            #f0f2f5;
+  --mp-border:        #e4e6eb;
+  --mp-text:          #1c1e21;
+  --mp-text-muted:    #65676b;
+  --mp-price:         #1c1e21;
+  --mp-radius:        12px;
+  --mp-shadow:        0 1px 3px rgba(0, 0, 0, .10), 0 4px 16px rgba(0, 0, 0, .06);
+  --mp-transition:    .18s ease;
+}
+
+/* ============================================================
+   Global
+   ============================================================ */
+body {
+  background-color: var(--mp-bg);
+  color: var(--mp-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               Helvetica, Arial, sans-serif;
+}
+
+/* ============================================================
+   Breadcrumb bar
+   ============================================================ */
+.mp-breadcrumb {
+  background: var(--mp-surface);
+  border-bottom: 1px solid var(--mp-border);
+  padding: .6rem 0;
+}
+
+.mp-breadcrumb .breadcrumb-item a {
+  color: var(--mp-primary);
+  text-decoration: none;
+}
+
+.mp-breadcrumb .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.mp-breadcrumb .breadcrumb-item.active {
+  color: var(--mp-text-muted);
+}
+
+/* ============================================================
+   Product image card
+   ============================================================ */
+.mp-image-card {
+  background: var(--mp-surface);
+  border-radius: var(--mp-radius);
+  overflow: hidden;
+  box-shadow: var(--mp-shadow);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--mp-transition);
+}
+
+.mp-image-card:hover .product-detail-img {
+  transform: scale(1.02);
+}
+
+/* ============================================================
+   Details panel
+   ============================================================ */
+.mp-details-panel {
+  background: var(--mp-surface);
+  border-radius: var(--mp-radius);
+  box-shadow: var(--mp-shadow);
+  padding: 1.75rem;
+}
+
+.mp-product-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--mp-text);
+  margin-bottom: .5rem;
+  line-height: 1.3;
+}
+
+/* Price */
+.price-tag {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--mp-price);
+  margin-bottom: .85rem;
+}
+
+/* Meta row: location, date listed */
+.mp-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: .85rem;
+  color: var(--mp-text-muted);
+  font-size: .875rem;
+}
+
+.mp-meta-item i {
+  margin-right: .25rem;
+}
+
+/* Badges */
+.mp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: 1rem;
+}
+
+.mp-badge-pill {
+  border-radius: 50px;
+  padding: .35em .8em;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.mp-badge-condition {
+  background-color: #e7f3ff;
+  color: var(--mp-primary);
+}
+
+.mp-badge-instock {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.mp-badge-outofstock {
+  background-color: #fce8e6;
+  color: #c62828;
+}
+
+/* Divider */
+.mp-divider {
+  border-color: var(--mp-border);
+  margin: 1rem 0;
+}
+
+/* Description */
+.mp-description {
+  color: var(--mp-text);
+  font-size: .9375rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   Quantity stepper
+   ============================================================ */
+.mp-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mp-qty-label {
+  font-weight: 600;
+  font-size: .9375rem;
+  color: var(--mp-text);
+  white-space: nowrap;
+}
+
+.mp-qty-stepper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--mp-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mp-qty-btn {
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--mp-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--mp-transition), color var(--mp-transition);
+}
+
+.mp-qty-btn:hover {
+  background: var(--mp-bg);
+  color: var(--mp-primary);
+}
+
+.mp-qty-btn:focus-visible {
+  outline: 2px solid var(--mp-primary);
+  outline-offset: -2px;
+}
+
+.mp-qty-input {
+  width: 48px;
+  height: 36px;
+  border: none;
+  border-left: 1.5px solid var(--mp-border);
+  border-right: 1.5px solid var(--mp-border);
+  text-align: center;
+  font-size: .9375rem;
+  font-weight: 600;
+  -moz-appearance: textfield;
+}
+
+.mp-qty-input::-webkit-inner-spin-button,
+.mp-qty-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.mp-qty-input:focus {
+  outline: 2px solid var(--mp-primary);
+  outline-offset: -1px;
+}
+
+/* ============================================================
+   Action buttons
+   ============================================================ */
+.mp-btn-primary {
+  background-color: var(--mp-primary);
+  border-color: var(--mp-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: .65rem 1rem;
+  font-size: .9375rem;
+  transition: background var(--mp-transition), box-shadow var(--mp-transition);
+}
+
+.mp-btn-primary:hover,
+.mp-btn-primary:focus {
+  background-color: var(--mp-primary-hover);
+  border-color: var(--mp-primary-hover);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(24, 119, 242, .35);
+}
+
+.mp-btn-primary:focus-visible {
+  outline: 3px solid rgba(24, 119, 242, .4);
+  outline-offset: 2px;
+}
+
+.mp-btn-secondary {
+  background-color: #e7f3ff;
+  border-color: #e7f3ff;
+  color: var(--mp-primary);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: .65rem 1rem;
+  font-size: .9375rem;
+  transition: background var(--mp-transition);
+}
+
+.mp-btn-secondary:hover,
+.mp-btn-secondary:focus {
+  background-color: #d0e7ff;
+  border-color: #d0e7ff;
+  color: var(--mp-primary);
+}
+
+.mp-btn-secondary:focus-visible {
+  outline: 3px solid rgba(24, 119, 242, .4);
+  outline-offset: 2px;
+}
+
+.mp-btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--mp-border);
+  color: var(--mp-text);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: .65rem 1rem;
+  font-size: .9375rem;
+  transition: background var(--mp-transition), border-color var(--mp-transition);
+}
+
+.mp-btn-outline:hover,
+.mp-btn-outline:focus {
+  background-color: var(--mp-bg);
+  border-color: #c5c7cb;
+  color: var(--mp-text);
+}
+
+.mp-btn-outline:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, .15);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Out-of-stock notice
+   ============================================================ */
+.mp-oos-notice {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+  padding: .85rem 1rem;
+  color: #7a5c00;
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+.mp-notify-link {
+  color: var(--mp-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mp-notify-link:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   Fade-up entrance animation (progressive enhancement)
+   Content is always visible; animation only activates when JS
+   has added the .js-animate class to <body>.
+   ============================================================ */
+.fade-up {
+  transition: opacity .45s ease, transform .45s ease;
+}
+
+body.js-animate .fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+body.js-animate .fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Responsive tweaks
+   ============================================================ */
+@media (max-width: 767.98px) {
+  .mp-details-panel {
+    padding: 1.25rem;
+  }
+
+  .mp-product-title {
+    font-size: 1.2rem;
+  }
+
+  .price-tag {
+    font-size: 1.4rem;
+  }
+}
