@@ -51,71 +51,78 @@ if (!isset($base_url)) {
 <!-- ================================================================
      Navbar — Facebook Marketplace style
      ================================================================ -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid px-3 gap-2">
-
-        <!-- Brand -->
-        <a class="navbar-brand d-flex align-items-center gap-2 flex-shrink-0" href="<?= $base_url ?>/public/index.php">
-            <i class="bi bi-shop-window" style="color:var(--fb-blue);-webkit-text-fill-color:var(--fb-blue);"></i>
-            ShopMVP
-        </a>
-
-        <!-- Search (desktop) -->
-        <div class="fb-nav-search d-none d-lg-flex flex-shrink-0">
-            <i class="bi bi-search"></i>
-            <input type="text" placeholder="Search Marketplace">
-        </div>
-
-        <button class="navbar-toggler ms-auto" type="button"
-                data-bs-toggle="collapse" data-bs-target="#navMain"
-                aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-list fs-4" style="color:var(--fb-text-2);"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navMain">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= $base_url ?>/public/index.php">
-                        <i class="bi bi-shop me-1"></i>Marketplace
-                    </a>
-                </li>
-            </ul>
-
-            <!-- Right side: Admin + Cart -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2 align-items-lg-center">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-speedometer2 me-1"></i>Admin
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="<?= $base_url ?>/public/admin/index.php">
-                                <i class="bi bi-house me-2"></i>Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?= $base_url ?>/public/admin/quotes.php">
-                                <i class="bi bi-chat-quote me-2"></i>Quote Requests
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <!-- Cart button -->
-            <a href="<?= $base_url ?>/public/cart.php" class="btn btn-cart position-relative d-flex align-items-center gap-2">
-                <i class="bi bi-cart3"></i>
-                <?php
-                $count = cart_count();
-                if ($count > 0):
-                ?>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill cart-badge">
-                        <?= $count ?>
-                    </span>
-                <?php endif; ?>
-                <span class="d-none d-sm-inline">Cart</span>
+<nav class="navbar navbar-expand-lg sticky-top" style="background-color:#0078D4;">
+    <div class="container-fluid px-0">
+        <div class="d-flex align-items-center w-100" style="min-height:56px;">
+            <!-- Left: Brand/Logo -->
+            <a class="navbar-brand d-flex align-items-center px-2 gap-2 flex-shrink-0" href="<?= $base_url ?>/public/index.php" style="font-weight:700;font-size:1.5rem;">
+                <i class="bi bi-shop-window fs-3 text-primary"></i>
+                <span class="d-none d-md-inline text-dark">Marketplace</span>
             </a>
+
+            <!-- Center: Navigation icons -->
+            <ul class="nav mx-2 flex-nowrap align-items-center" style="gap:0.5rem;">
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-2 rounded-3 d-flex flex-column align-items-center justify-content-center active" href="<?= $base_url ?>/public/index.php" style="min-width:56px;">
+                        <i class="bi bi-shop fs-4"></i>
+                        <span class="small d-none d-md-block">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-2 rounded-3 d-flex flex-column align-items-center justify-content-center" href="<?= $base_url ?>/public/admin/quotes.php" style="min-width:56px;">
+                        <i class="bi bi-chat-quote fs-4"></i>
+                        <span class="small d-none d-md-block">Quotes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3 py-2 rounded-3 d-flex flex-column align-items-center justify-content-center" href="<?= $base_url ?>/public/admin/index.php" style="min-width:56px;">
+                        <i class="bi bi-speedometer2 fs-4"></i>
+                        <span class="small d-none d-md-block">Admin</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Center: Search bar -->
+            <form class="d-none d-lg-flex align-items-center ms-3 flex-grow-1" role="search" style="max-width:400px;">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-0 bg-light" placeholder="Search Marketplace" aria-label="Search">
+                </div>
+            </form>
+
+            <!-- Right: Cart and profile -->
+            <div class="d-flex align-items-center ms-auto gap-2 pe-2">
+                <a href="<?= $base_url ?>/public/cart.php" class="btn btn-light position-relative d-flex align-items-center justify-content-center rounded-circle" style="width:40px;height:40px;">
+                    <i class="bi bi-cart3 fs-5"></i>
+                    <?php $count = cart_count(); if ($count > 0): ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge" style="font-size:0.7rem;">
+                            <?= $count ?>
+                        </span>
+                    <?php endif; ?>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center justify-content-center rounded-circle bg-light" style="width:40px;height:40px;" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-4 text-secondary"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end mt-2">
+                        <li><a class="dropdown-item" href="<?= $base_url ?>/public/admin/index.php"><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</a></li>
+                        <li><a class="dropdown-item" href="<?= $base_url ?>/public/admin/quotes.php"><i class="bi bi-chat-quote me-2"></i>Quote Requests</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Mobile search toggle -->
+            <button class="btn d-lg-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSearch" aria-controls="mobileSearch" aria-expanded="false" aria-label="Toggle search">
+                <i class="bi bi-search fs-5"></i>
+            </button>
+        </div>
+        <!-- Mobile search bar -->
+        <div class="collapse" id="mobileSearch">
+            <form class="d-flex align-items-center px-3 py-2" role="search">
+                <div class="input-group w-100">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-0 bg-light" placeholder="Search Marketplace" aria-label="Search">
+                </div>
+            </form>
         </div>
     </div>
 </nav>
