@@ -247,25 +247,26 @@ $cart_count = array_sum($_SESSION['cart'] ?? []);
 <script>
 /* Quantity stepper */
 (function () {
-  var input  = document.getElementById('quantity');
+  const input = document.getElementById('quantity');
   if (!input) return;
-  var maxVal = parseInt(input.max, 10) || 99;
+  const maxVal = parseInt(input.max, 10) || 99;
 
   document.getElementById('qty-dec').addEventListener('click', function () {
-    var v = parseInt(input.value, 10);
+    const v = parseInt(input.value, 10);
     if (v > 1) input.value = v - 1;
   });
 
   document.getElementById('qty-inc').addEventListener('click', function () {
-    var v = parseInt(input.value, 10);
+    const v = parseInt(input.value, 10);
     if (v < maxVal) input.value = v + 1;
   });
 
   /* Clamp on manual input */
   input.addEventListener('change', function () {
-    var v = parseInt(input.value, 10);
-    if (isNaN(v) || v < 1)      input.value = 1;
-    else if (v > maxVal)        input.value = maxVal;
+    let v = parseInt(input.value, 10);
+    if (isNaN(v) || v < 1) v = 1;
+    else if (v > maxVal)   v = maxVal;
+    input.value = v;
   });
 }());
 
@@ -274,7 +275,7 @@ $cart_count = array_sum($_SESSION['cart'] ?? []);
   /* Mark body so CSS activates the animation */
   document.body.classList.add('js-animate');
 
-  var observer = new IntersectionObserver(function (entries) {
+  const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
