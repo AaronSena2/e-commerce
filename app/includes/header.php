@@ -121,4 +121,4 @@ if (!isset($base_url)) {
 </nav>
 
 <!-- Page content starts here -->
-<main class="py-4">
+<main class="<?= htmlspecialchars($main_class ?? 'py-4') ?>">

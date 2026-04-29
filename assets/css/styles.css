@@ -191,13 +191,8 @@ body {
 /* ---------------------------
    Page main wrapper
    --------------------------- */
-main.py-4 {
+main {
     min-height: calc(100vh - var(--fb-navbar-h) - 120px);
-}
-
-/* Cancel py-4 padding when marketplace layout is active */
-main:has(.mp-layout) {
-    padding: 0 !important;
 }
 
 /* ---------------------------
@@ -266,8 +261,9 @@ main:has(.mp-layout) {
 
 /* ---------------------------
    Product Cards  (Facebook Marketplace style)
+   Use .card.product-card for higher specificity over the generic .card rule
    --------------------------- */
-.product-card {
+.card.product-card {
     transition: box-shadow var(--transition), transform var(--transition);
     border: none !important;
     border-radius: 12px !important;
@@ -277,7 +273,7 @@ main:has(.mp-layout) {
     cursor: pointer;
     position: relative;
 }
-.product-card:hover {
+.card.product-card:hover {
     box-shadow: 0 4px 16px rgba(0,0,0,.22);
     transform: translateY(-3px);
 }
@@ -800,24 +796,28 @@ footer.site-footer .footer-bottom {
 .fade-up-4 { animation-delay: .24s; }
 
 /* ============================================================
-   Facebook Marketplace Layout
+   Facebook Marketplace Layout — Bootstrap row/col based
    ============================================================ */
 
-/* ---------------------------
-   Two-pane shell
-   --------------------------- */
-.mp-layout {
-    display: flex;
-    align-items: flex-start;
+/* Ensure the Bootstrap row fills the viewport height */
+.mp-row {
     min-height: calc(100vh - var(--fb-navbar-h));
+    align-items: flex-start;
+}
+
+/* ---------------------------
+   Sidebar column wrapper
+   (Bootstrap col-auto keeps it at its natural width)
+   --------------------------- */
+.mp-sidebar-col {
+    /* Nothing extra needed — col-auto + mp-sidebar width handles it */
 }
 
 /* ---------------------------
    Left sidebar
    --------------------------- */
 .mp-sidebar {
-    width: var(--fb-sidebar-w);
-    flex-shrink: 0;
+    width: var(--fb-sidebar-w);   /* 360px */
     background: #fff;
     border-right: 1px solid var(--fb-border);
     padding: .75rem 0 2rem;
@@ -838,7 +838,7 @@ footer.site-footer .footer-bottom {
     padding: .25rem 1rem .75rem;
 }
 
-/* Search row inside sidebar */
+/* Search inside sidebar */
 .mp-sidebar-search {
     display: flex;
     align-items: center;
@@ -887,7 +887,7 @@ footer.site-footer .footer-bottom {
     margin: .75rem 0;
 }
 
-/* Section label (e.g. "BROWSE BY CATEGORY") */
+/* Section label */
 .mp-section-label {
     font-size: .72rem;
     font-weight: 700;
@@ -895,6 +895,7 @@ footer.site-footer .footer-bottom {
     text-transform: uppercase;
     letter-spacing: .06em;
     padding: .25rem 1rem .4rem;
+    margin: 0;
 }
 
 /* Category link row */
@@ -908,14 +909,10 @@ footer.site-footer .footer-bottom {
     font-size: .9375rem;
     font-weight: 500;
     transition: background var(--transition);
-    border-radius: 0;
 }
 .mp-cat-link:hover { background: var(--fb-bg); color: var(--fb-text); }
 .mp-cat-link.active { background: var(--fb-blue-soft); color: var(--fb-blue); }
-.mp-cat-link.active .mp-cat-icon {
-    background: var(--fb-blue);
-    color: #fff;
-}
+.mp-cat-link.active .mp-cat-icon { background: var(--fb-blue); color: #fff; }
 
 .mp-cat-icon {
     width: 36px;
@@ -931,11 +928,20 @@ footer.site-footer .footer-bottom {
     transition: background var(--transition), color var(--transition);
 }
 
+/* Privacy footer inside sidebar */
+.mp-sidebar-footer {
+    font-size: .75rem;
+    color: var(--fb-text-2);
+    padding: .25rem 1rem 0;
+    line-height: 1.6;
+}
+.mp-sidebar-footer a { color: var(--fb-text-2); text-decoration: none; }
+.mp-sidebar-footer a:hover { text-decoration: underline; }
+
 /* ---------------------------
    Main content pane
    --------------------------- */
 .mp-content {
-    flex: 1;
     padding: 1.5rem 1.75rem 2rem;
     min-width: 0;
 }
@@ -947,27 +953,21 @@ footer.site-footer .footer-bottom {
     margin-bottom: 1.25rem;
 }
 
+/* Ensure Bootstrap col doesn't overflow */
+.min-width-0 { min-width: 0; }
+
 /* ---------------------------
-   Mobile: show horizontal pill bar, hide sidebar
+   Mobile: horizontal category pill bar
+   (Bootstrap d-flex d-lg-none applied in HTML)
    --------------------------- */
-@media (max-width: 991.98px) {
-    .mp-sidebar { display: none; }
-
-    .mp-content { padding: 1rem; }
-
-    .mp-cat-bar {
-        display: flex !important;
-    }
-}
-
 .mp-cat-bar {
-    display: none;
     overflow-x: auto;
     gap: .5rem;
     padding: .6rem 1rem;
     background: #fff;
     border-bottom: 1px solid var(--fb-border);
     scrollbar-width: none;
+    flex-wrap: nowrap;
 }
 .mp-cat-bar::-webkit-scrollbar { display: none; }
 
@@ -988,3 +988,8 @@ footer.site-footer .footer-bottom {
 }
 .mp-cat-pill:hover { background: var(--fb-border); color: var(--fb-text); }
 .mp-cat-pill.active { background: var(--fb-blue); color: #fff; }
+
+/* Tighten content padding on small screens */
+@media (max-width: 991.98px) {
+    .mp-content { padding: 1rem; }
+}
