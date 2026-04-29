@@ -56,46 +56,28 @@ require_once __DIR__ . '/../app/includes/header.php';
             <i class="bi bi-info-circle me-2"></i>No products found. Import <code>sql/schema.sql</code> to add seed data.
         </div>
     <?php else: ?>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 g-3">
             <?php foreach ($products as $i => $product): ?>
+                <?php $inStock = (int) $product['stock'] > 0; ?>
                 <div class="col fade-up" style="animation-delay:<?= min($i * 0.05, 0.4) ?>s">
-                    <div class="card product-card h-100">
-                        <a href="product.php?id=<?= (int) $product['id'] ?>" class="text-decoration-none text-dark">
-                            <div class="card-img-placeholder">
-                                <i class="bi bi-box-seam"></i>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title mb-1" title="<?= htmlspecialchars($product['name']) ?>">
-                                    <?= htmlspecialchars($product['name']) ?>
-                                </h5>
-                                <p class="card-text text-muted small flex-grow-1 mt-1" style="
-                                    overflow: hidden;
-                                    display: -webkit-box;
-                                    -webkit-line-clamp: 2;
-                                    -webkit-box-orient: vertical;">
-                                    <?= htmlspecialchars($product['description'] ?? '') ?>
-                                </p>
-                                <div class="d-flex align-items-center justify-content-between mt-3">
-                                    <span class="price">$<?= number_format((float) $product['price'], 2) ?></span>
-                                    <?php if ((int) $product['stock'] > 0): ?>
-                                        <span class="badge" style="background:rgba(16,185,129,.12);color:#059669;border:1px solid rgba(16,185,129,.25);">In Stock</span>
-                                    <?php else: ?>
-                                        <span class="badge" style="background:rgba(107,114,128,.1);color:#6b7280;border:1px solid rgba(107,114,128,.2);">Out of Stock</span>
-                                    <?php endif; ?>
+                    <a href="product.php?id=<?= (int) $product['id'] ?>" class="text-decoration-none">
+                        <div class="card product-card h-100<?= $inStock ? '' : ' out-of-stock' ?>">
+                            <div class="card-img-wrapper">
+                                <div class="card-img-placeholder">
+                                    <i class="bi bi-box-seam"></i>
                                 </div>
                             </div>
-                        </a>
-                        <div class="card-footer">
-                            <?php if ((int) $product['stock'] > 0): ?>
-                                <a href="product.php?id=<?= (int) $product['id'] ?>"
-                                   class="btn btn-primary btn-sm w-100">
-                                    <i class="bi bi-eye me-1"></i>View Details
-                                </a>
-                            <?php else: ?>
-                                <button class="btn btn-secondary btn-sm w-100" disabled>Out of Stock</button>
-                            <?php endif; ?>
+                            <div class="card-body">
+                                <span class="price">$<?= number_format((float) $product['price'], 2) ?></span>
+                                <h5 class="card-title">
+                                    <?= htmlspecialchars($product['name']) ?>
+                                </h5>
+                                <p class="card-meta mb-0">
+                                    <?= $inStock ? 'Available' : 'Sold Out' ?>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>
