@@ -1,203 +1,160 @@
+
 <style>
-    /* Sidebar Styling */
-    .mp-sidebar {
-        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-        border-right: 1px solid #e9ecef;
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-        padding: 1rem;
-        width: 220px;
-        position: fixed;
-        left: 0;
-        height: 100vh;
-        overflow-y: auto;
+    body {
+        background: #f4f6fa;
+        font-family: 'Segoe UI', Arial, sans-serif;
     }
-
-    .mp-sidebar-title {
-        font-size: 1.5rem;
+    .main-header {
+        background: #fff;
+        border-bottom: 3px solid #2564cf;
+        padding: 1.5rem 0 1rem 0;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(37,100,207,0.04);
+    }
+    .main-header .logo {
+        font-size: 2rem;
         font-weight: 700;
-        color: #1a1a1a;
+        color: #2564cf;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+    .main-header .search-bar {
+        max-width: 420px;
+        margin: 0 auto;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 1.5rem;
+        background: #f4f6fa;
+        border-radius: 30px;
+        border: 1px solid #e3e7ef;
+        padding: 0.25rem 1rem;
     }
-
-    .mp-gear-btn {
-        background: none;
+    .main-header .search-bar input {
         border: none;
-        color: #6c757d;
-        cursor: pointer;
-        font-size: 1.25rem;
-        transition: all 0.3s ease;
-        padding: 0.5rem;
-        border-radius: 6px;
-    }
-
-    .mp-gear-btn:hover {
-        background-color: #e9ecef;
-        color: #495057;
-        transform: rotate(15deg);
-    }
-
-    .mp-sidebar-search {
-        position: relative;
-        margin-bottom: 1.5rem;
-    }
-
-    .mp-sidebar-search i {
-        position: absolute;
-        left: 0.75rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6c757d;
-        font-size: 0.9rem;
-    }
-
-    .mp-sidebar-search input {
-        width: 100%;
-        padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        background-color: #ffffff;
-    }
-
-    .mp-sidebar-search input:focus {
+        background: transparent;
         outline: none;
-        border-color: #0d6efd;
-        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        flex: 1;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        font-size: 1rem;
     }
-
-    .mp-nav {
+    .main-header .search-bar i {
+        color: #2564cf;
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+    }
+    .main-header .nav {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .main-header .nav a {
+        color: #222;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s;
+        font-size: 1rem;
+    }
+    .main-header .nav a:hover {
+        color: #2564cf;
+    }
+    .product-listing {
+        padding: 0 0 2rem 0;
+    }
+    .product-listing-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.5px;
+    }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+    .product-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(37,100,207,0.07);
+        transition: box-shadow 0.2s, transform 0.2s;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        border: 1px solid #e3e7ef;
+    }
+    .product-card:hover {
+        box-shadow: 0 6px 24px rgba(37,100,207,0.13);
+        transform: translateY(-2px) scale(1.02);
+    }
+    .product-card .card-img-wrapper {
+        background: #f4f6fa;
+        min-height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px 12px 0 0;
+        overflow: hidden;
+    }
+    .product-card .card-img-placeholder {
+        font-size: 2.5rem;
+        color: #2564cf;
+    }
+    .product-card .card-body {
+        padding: 1rem 1rem 0.75rem 1rem;
+        flex: 1;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        margin-bottom: 1.5rem;
     }
-
-    .mp-nav-link {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.75rem 1rem;
-        color: #495057;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-
-    .mp-nav-link:hover {
-        background-color: #e7f1ff;
-        color: #0d6efd;
-        transform: translateX(4px);
-    }
-
-    .mp-nav-link.active {
-        background-color: #0d6efd;
-        color: #ffffff;
-    }
-
-    .mp-nav-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-    }
-
-    .mp-nav-label {
-        flex: 1;
-    }
-
-    .mp-create-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 0.875rem;
-        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
-        color: #ffffff;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 4px rgba(13, 110, 253, 0.3);
-        margin-bottom: 1.5rem;
-    }
-
-    .mp-create-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
-        color: #ffffff;
-        text-decoration: none;
-    }
-
-    .mp-divider {
-        border: none;
-        border-top: 1px solid #e9ecef;
-        margin: 1.5rem 0;
-    }
-
-    .mp-sidebar-block {
-        margin-bottom: 1.5rem;
-    }
-
-    .mp-block-title {
-        font-size: 0.875rem;
+    .product-card .price {
+        font-size: 1.15rem;
         font-weight: 700;
+        color: #2564cf;
+        margin-bottom: 0.25rem;
+    }
+    .product-card .card-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 0.25rem;
+        margin-top: 0;
+        line-height: 1.3;
+    }
+    .product-card .mp-card-location {
+        font-size: 0.85rem;
         color: #6c757d;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.75rem;
     }
-
-    .mp-location-link {
-        display: flex;
-        align-items: center;
-        padding: 0.75rem 1rem;
-        color: #0d6efd;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
+    .product-card .card-stock-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background-color: #e7f3e3;
+        color: #2564cf;
+        margin-top: 0.25rem;
     }
-
-    .mp-location-link:hover {
-        background-color: #e7f1ff;
-        color: #0a58ca;
+    .product-card .card-stock-badge.sold-out {
+        background-color: #f8d7da;
+        color: #842029;
     }
-
-    .mp-nav-compact {
-        gap: 0.25rem;
+    .alert {
+        margin-top: 1.5rem;
     }
-
-    .mp-nav-compact .mp-nav-link {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.9rem;
-    }
-
-    .mp-sidebar-footer {
-        font-size: 0.8rem;
-        color: #6c757d;
-        text-align: center;
-        padding-top: 1rem;
-        border-top: 1px solid #e9ecef;
-        line-height: 1.6;
-    }
-
-    .mp-sidebar-footer a {
-        color: #0d6efd;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .mp-sidebar-footer a:hover {
-        color: #0a58ca;
-        text-decoration: underline;
+    @media (max-width: 767px) {
+        .main-header {
+            padding: 1rem 0 0.5rem 0;
+        }
+        .main-header .logo {
+            font-size: 1.3rem;
+        }
+        .product-listing-title {
+            font-size: 1.1rem;
+        }
+        .product-card .card-img-wrapper {
+            min-height: 90px;
+        }
     }
 </style>
 
@@ -244,136 +201,131 @@ $category_groups = [
 $location_label = 'Kampala, Uganda · Within 65 km';
 ?>
 
-<!-- Mobile horizontal bar (below lg) -->
-<div class="mp-cat-bar d-flex d-lg-none">
-    <a href="#" class="mp-cat-pill active"><i class="bi bi-grid"></i> Browse all</a>
-    <a href="#" class="mp-cat-pill"><i class="bi bi-car-front"></i> Vehicles</a>
-    <a href="#" class="mp-cat-pill"><i class="bi bi-house-door"></i> Property</a>
-    <a href="#" class="mp-cat-pill"><i class="bi bi-phone"></i> Electronics</a>
-</div>
 
+<!-- Header -->
 
-
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar (Facebook Marketplace style) -->
-        <aside class="mp-sidebar d-none d-lg-block col-lg-3 col-xl-2 bg-white px-0" style="min-height: 100vh; border-right: 1px solid #e4e6eb;">
-            <!-- <div class="d-flex align-items-center justify-content-between px-3 pt-4 pb-2">
-                <span class="fw-bold fs-4">Marketplace</span>
-                <button class="btn btn-light btn-sm rounded-circle" type="button" aria-label="Marketplace settings">
-                    <i class="bi bi-gear"></i>
-                </button>
-            </div> -->
-            <!-- <div class="px-3 mb-2">
-                <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control border-0 bg-light" placeholder="Search Marketplace" aria-label="Search Marketplace">
-                </div>
-            </div> -->
-            <nav class="nav flex-column mb-2">
-                <a href="#" class="nav-link d-flex align-items-center px-3 py-2 fw-semibold<?= !empty($categories[0]['active']) ? ' active' : '' ?>">
-                    <i class="bi bi-grid fs-5 me-3"></i> Browse all
-                </a>
-                <a href="#" class="nav-link d-flex align-items-center px-3 py-2<?= !empty($categories[1]['active']) ? ' active' : '' ?>">
-                    <i class="bi bi-bag fs-5 me-3"></i> Buying
-                </a>
-                <a href="#" class="nav-link d-flex align-items-center px-3 py-2<?= !empty($categories[2]['active']) ? ' active' : '' ?>">
-                    <i class="bi bi-tags fs-5 me-3"></i> Selling
-                </a>
-                <a href="<?= $base_url ?>/public/quote_request.php" class="nav-link d-flex align-items-center px-3 py-2">
-                    <i class="bi bi-plus-circle fs-5 me-3"></i> Create new listing
-                </a>
-            </nav>
-            <hr class="my-2">
-            <div class="px-3 mb-2">
-                <div class="text-muted small mb-1">Filters</div>
-                <a class="d-flex align-items-center text-decoration-none mb-2" href="#">
-                    <i class="bi bi-geo-alt-fill me-2"></i>
-                    <span><?= htmlspecialchars($location_label) ?></span>
-                </a>
+<header class="main-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="border-bottom: 3px solid #2564cf;">
+        <div class="container">
+            <a class="navbar-brand logo" href="/">ShopMVP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-grid me-1"></i> Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-car-front me-1"></i> Vehicles</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-house-door me-1"></i> Property Rentals</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-phone me-1"></i> Electronics</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-controller me-1"></i> Toys & Games</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Account
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-1"></i> Notifications</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-inbox me-1"></i> Inbox</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-shield-lock me-1"></i> Marketplace Access</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="buySellDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bag me-1"></i> Buying/Selling
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="buySellDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bag me-1"></i> Buying</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-tags me-1"></i> Selling</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/public/quote_request.php"><i class="bi bi-plus-circle me-1"></i> List Product</a>
+                    </li>
+                </ul>
+                <form class="d-flex search-bar" method="get" action="/public/index.php" style="max-width: 420px;">
+                    <i class="bi bi-search align-self-center"></i>
+                    <input class="form-control border-0 bg-transparent" type="text" name="q" placeholder="Search products..." value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+                </form>
             </div>
-            <hr class="my-2">
-            <div class="px-3">
-                <div class="text-muted small mb-1">Categories</div>
-                <nav class="nav flex-column">
-                    <a href="#" class="nav-link d-flex align-items-center px-0 py-2">
-                        <i class="bi bi-car-front fs-5 me-3"></i> Vehicles
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center px-0 py-2">
-                        <i class="bi bi-house-door fs-5 me-3"></i> Property Rentals
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center px-0 py-2">
-                        <i class="bi bi-phone fs-5 me-3"></i> Electronics
-                    </a>
-                    <a href="#" class="nav-link d-flex align-items-center px-0 py-2">
-                        <i class="bi bi-controller fs-5 me-3"></i> Toys & Games
-                    </a>
-                </nav>
+        </div>
+    </nav>
+</header>
+<!-- Banner Section -->
+<section class="homepage-banner position-relative" style="background: linear-gradient(90deg, #2564cf 0%, #1e3a8a 100%); min-height: 320px; display: flex; align-items: center; justify-content: center; color: #fff;">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-md-7 mb-4 mb-md-0">
+                <h1 class="fw-bold display-5 mb-3" style="letter-spacing: -1px;">Welcome to <span style="color: #ffd600;">E-commerce Marketplace</span></h1>
+                <p class="lead mb-4" style="max-width: 480px;">Find the best deals on electronics, vehicles, property rentals, and more. Shop, sell, and connect with trusted sellers in your area.</p>
+                <a href="/public/quote_request.php" class="btn btn-warning btn-lg fw-semibold px-4 shadow-sm" style="color: #1e3a8a;">List Your Product</a>
+                <a href="#products" class="btn btn-outline-light btn-lg fw-semibold px-4 ms-2">Browse Products</a>
             </div>
-            <div class="mt-auto px-3 pb-3 small text-muted" style="position: absolute; bottom: 0;">
-                <a href="#" class="text-muted">Privacy</a> · <a href="#" class="text-muted">Terms</a> · <a href="#" class="text-muted">Cookies</a><br>
-                &copy; <?= date('Y') ?> ShopMVP
+            <div class="col-md-5 text-center">
+                <img src="/assets/images/banner-illustration.svg" alt="Marketplace Banner" class="img-fluid" style="max-height: 220px;">
             </div>
-        </aside>
-
-        <!-- Main content -->
-        <main class="mp-main col-12 col-lg-9 col-xl-10 ms-auto px-0" style="background: #f0f2f5; min-height: 100vh;">
-            <div class="mp-content mp-content-tight px-3 pt-4">
-                <?php if (isset($error)): ?>
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        Could not load products. Please check your database connection.<br>
-                        <small class="text-muted"><?= htmlspecialchars($error) ?></small>
-                    </div>
-                <?php else: ?>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h2 class="fw-bold mb-0" style="font-size: 1.5rem;">Today's picks</h2>
-                        <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm" style="font-size: 0.95rem;">
-                            <i class="bi bi-geo-alt-fill me-2 text-primary"></i>
-                            <span><?= htmlspecialchars($location_label) ?></span>
-                        </div>
-                    </div>
-                    <?php if (empty($products)): ?>
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>No products found.
-                            Import <code>sql/schema.sql</code> to add seed data.
-                        </div>
-                    <?php else: ?>
-                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-6 g-3">
-                            <?php foreach ($products as $i => $product): ?>
-                                <?php $inStock = (int) $product['stock'] > 0; ?>
-                                <div class="col fade-up" style="animation-delay:<?= min($i * 0.05, 0.4) ?>s">
-                                    <a href="product.php?id=<?= (int) $product['id'] ?>" class="text-decoration-none">
-                                        <div class="card product-card h-100<?= $inStock ? '' : ' out-of-stock' ?>" style="box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: none; border-radius: 10px; transition: all 0.3s ease; min-width: 0;">
-                                            <div class="card-img-wrapper" style="background: #f0f2f5; min-height: 120px; display: flex; align-items: center; justify-content: center; border-radius: 10px 10px 0 0;">
-                                                <div class="card-img-placeholder" style="font-size: 2rem; color: #6c757d;">
-                                                    <i class="bi bi-box-seam"></i>
-                                                </div>
-                                            </div>
-                                            <div class="card-body" style="padding: 10px;">
-                                                <span class="price" style="font-size: 1.1rem; font-weight: 700; color: #050505;">
-                                                    $<?= number_format((float) $product['price'], 2) ?>
-                                                </span>
-                                                <h5 class="card-title mb-1" style="font-size: 0.95rem; font-weight: 600; margin-top: 6px; line-height: 1.3; color: #050505;">
-                                                    <?= htmlspecialchars($product['name']) ?>
-                                                </h5>
-                                                <div class="mp-card-sub" style="margin: 6px 0;">
-                                                    <span class="mp-card-location" style="font-size: 0.8rem; color: #65676b;">Kampala, Uganda</span>
-                                                </div>
-                                                <span class="card-stock-badge <?= $inStock ? 'in-stock' : 'sold-out' ?>" style="display: inline-block; padding: 4px 10px; border-radius: 16px; font-size: 0.7rem; font-weight: 600; background-color: <?= $inStock ? '#e7f3e3' : '#f8d7da' ?>; color: <?= $inStock ? '#1877f2' : '#842029' ?>;">
-                                                    <?= $inStock ? 'Available' : 'Sold Out' ?>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
-        </main>
+        </div>
     </div>
+    <!-- Decorative shapes -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+        <svg width="100%" height="100%" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom: 0; left: 0;">
+            <path fill="#fff" fill-opacity="0.07" d="M0,224L48,197.3C96,171,192,117,288,117.3C384,117,480,171,576,197.3C672,224,768,224,864,197.3C960,171,1056,117,1152,117.3C1248,117,1344,171,1392,197.3L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container product-listing">
+    <div class="product-listing-title d-flex align-items-center justify-content-between flex-wrap">
+        <span>Today's picks</span>
+        <span class="d-flex align-items-center" style="font-size: 1rem; color: #2564cf;">
+            <i class="bi bi-geo-alt-fill me-2"></i>
+            <?= htmlspecialchars($location_label) ?>
+        </span>
+    </div>
+    <?php if (isset($error)): ?>
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Could not load products. Please check your database connection.<br>
+            <small class="text-muted"><?= htmlspecialchars($error) ?></small>
+        </div>
+    <?php else: ?>
+        <?php if (empty($products)): ?>
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>No products found.
+                Import <code>sql/schema.sql</code> to add seed data.
+            </div>
+        <?php else: ?>
+            <div class="product-grid">
+                <?php foreach ($products as $i => $product): ?>
+                    <?php $inStock = (int) $product['stock'] > 0; ?>
+                    <a href="product.php?id=<?= (int) $product['id'] ?>" class="product-card text-decoration-none">
+                        <div class="card-img-wrapper">
+                            <div class="card-img-placeholder">
+                                <i class="bi bi-box-seam"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="price">
+                                $<?= number_format((float) $product['price'], 2) ?>
+                            </span>
+                            <div class="card-title">
+                                <?= htmlspecialchars($product['name']) ?>
+                            </div>
+                            <span class="mp-card-location">Kampala, Uganda</span>
+                            <span class="card-stock-badge<?= $inStock ? '' : ' sold-out' ?>">
+                                <?= $inStock ? 'Available' : 'Sold Out' ?>
+                            </span>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
 </div>
 
 <?php 
