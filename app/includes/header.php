@@ -51,7 +51,7 @@ if (!isset($base_url)) {
 <!-- ================================================================
      Navbar — Facebook Marketplace style
      ================================================================ -->
-
+/
 
 <!-- Page content starts here -->
 <main class="<?= htmlspecialchars($main_class ?? 'py-4') ?>">
