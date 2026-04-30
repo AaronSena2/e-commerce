@@ -51,7 +51,78 @@ if (!isset($base_url)) {
 <!-- ================================================================
      Navbar — Facebook Marketplace style
      ================================================================ -->
+<<<<<<< HEAD
 /
+=======
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-3 gap-2">
+
+        <!-- Brand -->
+        <a class="navbar-brand d-flex align-items-center gap-2 flex-shrink-0" href="<?= $base_url ?>/public/index.php">
+            <i class="bi bi-shop-window" style="color:var(--fb-blue);-webkit-text-fill-color:var(--fb-blue);"></i>
+            ShopMVP
+        </a>
+
+        <!-- Search (desktop) -->
+        <div class="fb-nav-search d-none d-lg-flex flex-shrink-0">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search Marketplace">
+        </div>
+
+        <button class="navbar-toggler ms-auto" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMain"
+                aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list fs-4" style="color:var(--fb-text-2);"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $base_url ?>/public/index.php">
+                        <i class="bi bi-shop me-1"></i>Marketplace
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right side: Admin + Cart -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2 align-items-lg-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-speedometer2 me-1"></i>Admin
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="<?= $base_url ?>/public/admin/index.php">
+                                <i class="bi bi-house me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= $base_url ?>/public/admin/quotes.php">
+                                <i class="bi bi-chat-quote me-2"></i>Quote Requests
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Cart button -->
+            <a href="<?= $base_url ?>/public/cart.php" class="btn btn-cart position-relative d-flex align-items-center gap-2">
+                <i class="bi bi-cart3"></i>
+                <?php
+                $count = cart_count();
+                if ($count > 0):
+                ?>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill cart-badge">
+                        <?= $count ?>
+                    </span>
+                <?php endif; ?>
+                <span class="d-none d-sm-inline">Cart</span>
+            </a>
+        </div>
+    </div>
+</nav>
+>>>>>>> 19ddd754fddc026d8872b16d9fc0a8d2f2412175
 
 <!-- Page content starts here -->
 <main class="<?= htmlspecialchars($main_class ?? 'py-4') ?>">
