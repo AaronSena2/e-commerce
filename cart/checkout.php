@@ -1,8 +1,7 @@
 <?php
+include "../config/db.php";
 include "../includes/header.php";
 include "../includes/navbar.php";
-session_start();
-include "../config/db.php";
 if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
     echo '<div class="container mt-5"><h4>No items in cart.</h4></div>';
     include "../includes/footer.php";
