@@ -1,8 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 function require_admin() {
-    if(empty($_SESSION['admin_logged_in'])) {
-        header('Location: /login.php'); exit;
+    if(empty($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
+        header('Location: /users/login.php'); exit;
     }
 }
 ?>

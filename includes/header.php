@@ -1,10 +1,12 @@
+<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ROSA-TECH ENGINEERING LTD</title>
-  <link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-0">
@@ -17,7 +19,15 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a href="/shop.php" class="nav-link">Shop</a></li>
         <li class="nav-item"><a href="/rfq_cart.php" class="nav-link">RFQ Cart</a></li>
-        <li class="nav-item"><a href="/login.php" class="nav-link">Admin</a></li>
+        <?php if (!empty($_SESSION['user_id'])): ?>
+          <?php if (!empty($_SESSION['is_admin'])): ?>
+            <li class="nav-item"><a href="/admin/dashboard.php" class="nav-link">Admin</a></li>
+          <?php endif; ?>
+          <li class="nav-item"><a href="/users/logout.php" class="nav-link">Logout</a></li>
+        <?php else: ?>
+          <li class="nav-item"><a href="/users/login.php" class="nav-link">Login</a></li>
+          <li class="nav-item"><a href="/users/register.php" class="nav-link">Register</a></li>
+        <?php endif; ?>
       </ul>
     </div>
   </div>
